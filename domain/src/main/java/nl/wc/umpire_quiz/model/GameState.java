@@ -21,21 +21,6 @@ public class GameState {
         // Empty Constructor is mandatory for JPA
     }
 
-    public static GameStateBuilder builder() {
-        return new GameStateBuilder();
-    }
-
-    @Override
-    public String toString() {
-        return "\n\tRunner on base 1: " + runnerBase1 + "\n" +
-                "\tRunner on base 2: " + runnerBase2 + "\n" +
-                "\tRunner on base 3: " + runnerBase3 + "\n" +
-                "\tWith Batter/Runner: " + batterRunner + "\n" +
-                "\tOuts: " + outs + "\n" +
-                "\tBalls: " + balls + "\n" +
-                "\tStrikes: " + strikes + "\n";
-    }
-
     public boolean isRunnerBase1() {
         return runnerBase1;
     }
@@ -124,62 +109,4 @@ public class GameState {
             throw new GameStateValidationException("strikes have to be a numeric value.");
         }
     }
-
-    public static class GameStateBuilder {
-        private final GameState gameState;
-
-        private GameStateBuilder() {
-            this.gameState = new GameState();
-        }
-
-        public GameStateBuilder withRunner(int base, boolean flag) {
-            switch (base) {
-                case 1 -> gameState.setRunnerBase1(flag);
-                case 2 -> gameState.setRunnerBase2(flag);
-                case 3 -> gameState.setRunnerBase3(flag);
-                default -> throw new UnsupportedOperationException("Can not set a base besides 1 to 3");
-            }
-            return this;
-        }
-
-        public GameStateBuilder withBatterRunner(boolean flag) {
-            gameState.setBatterRunner(flag);
-            return this;
-        }
-
-        public GameStateBuilder withOuts(int outs) {
-            gameState.setOuts(outs);
-            return this;
-        }
-
-        public GameStateBuilder withOuts(String outs) {
-            gameState.setOuts(outs);
-            return this;
-        }
-
-        public GameStateBuilder withBalls(int balls) {
-            gameState.setBalls(balls);
-            return this;
-        }
-
-        public GameStateBuilder withBalls(String balls) {
-            gameState.setBalls(balls);
-            return this;
-        }
-
-        public GameStateBuilder withStrikes(int strikes) {
-            gameState.setStrikes(strikes);
-            return this;
-        }
-
-        public GameStateBuilder withStrikes(String strikes) {
-            gameState.setStrikes(strikes);
-            return this;
-        }
-
-        public GameState build() {
-            return gameState;
-        }
-    }
-
 }
