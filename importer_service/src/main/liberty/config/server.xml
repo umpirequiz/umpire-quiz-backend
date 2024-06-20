@@ -5,7 +5,7 @@
     <variable name="MYSQL_USE_SSL" defaultValue="true"/>
     <variable name="MYSQL_ROOT_PASSWORD" defaultValue="root"/>
     <variable name="DATABASE_NAME" defaultValue="data"/>
-    <variable name="JWT_SHAREDKEY" defaultValue="mySecret" />
+    <variable name="JWT_SHAREDKEY" defaultValue="mySecret"/>
 
     <featureManager>
         <feature>cdi-4.0</feature>
@@ -15,6 +15,7 @@
         <feature>jsonp-2.1</feature>
         <feature>mpHealth-4.0</feature>
         <feature>mpJwt-2.1</feature>
+        <feature>mpOpenAPI-3.1</feature>
         <feature>restfulWS-3.1</feature>
         <feature>persistence-3.1</feature>
         <feature>beanValidation-3.0</feature>
@@ -25,7 +26,7 @@
     <httpEndpoint id="defaultHttpEndpoint" httpPort="9080" httpsPort="9443"/>
     <applicationManager autoExpand="true"/>
 
-    <webApplication contextRoot="/rest" location="rest.war" />
+    <webApplication contextRoot="/" location="importer_service.war"/>
 
     <library id="MySQLLib">
         <fileset dir="${shared.resource.dir}/" includes="mysql*.jar"/>

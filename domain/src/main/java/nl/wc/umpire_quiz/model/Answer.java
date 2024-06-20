@@ -7,6 +7,8 @@ import java.util.Map;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
+import static nl.wc.umpire_quiz.model.CountryCode.EN_US;
+import static nl.wc.umpire_quiz.model.CountryCode.NL_NL;
 
 @Entity
 public class Answer {
@@ -18,11 +20,17 @@ public class Answer {
     @JsonbTransient
     private Question question;
 
-    @ElementCollection
+    @SuppressWarnings("JpaAttributeTypeInspection")
     @MapKeyEnumerated(STRING)
+    @ElementCollection
+    @Lob
     private Map<CountryCode, String> i18nValue;
 
     private boolean correct;
+
+    public Answer(String answer) {
+        this.i18nValue = Map.of(NL_NL, answer, EN_US, answer);
+    }
 
     public Answer() {
         // Empty Constructor is mandatory for JPA

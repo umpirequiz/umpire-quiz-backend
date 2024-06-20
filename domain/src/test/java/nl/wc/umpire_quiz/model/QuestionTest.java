@@ -49,11 +49,25 @@ class QuestionTest {
 
         Question q2 = q.copy();
         assertThat(q2.isEnabled()).isTrue();
+        assertThat(q2.getI18nRuling()).isEqualTo(ruling1);
+        assertThat(q2.getI18nRuling()).isNotEqualTo(ruling2);
         q2.setI18nRuling(ruling2);
         assertThat(q2.getI18nRuling()).isEqualTo(ruling2);
         assertThat(q2.getI18nRuling()).isNotEqualTo(ruling1);
         assertThat(q.getI18nRuling()).isEqualTo(ruling1);
         assertThat(q.getI18nRuling()).isNotEqualTo(ruling2);
+
+        assertThat(q2.getI18nValue()).isEqualTo(value);
+
+        assertThat(q2.getId()).isZero();
+
+        assertThat(q2.getAnswers()).isEqualTo(answers);
+        assertThat(a1.getQuestion()).isEqualTo(q2);
+        assertThat(a2.getQuestion()).isEqualTo(q2);
+
+        assertThat(q2.getDifficulty()).isEqualTo(UMPIRE_1);
+
+        assertThat(q2.getGameState()).isEqualTo(gameState);
     }
 
 }

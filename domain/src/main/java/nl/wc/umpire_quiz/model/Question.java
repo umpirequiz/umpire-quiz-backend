@@ -12,21 +12,32 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 public class Question {
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private long id;
+
     @Embedded
     private GameState gameState;
+
     private Difficulty difficulty;
-    @ElementCollection
+
+    @SuppressWarnings("JpaAttributeTypeInspection")
     @MapKeyEnumerated(STRING)
+    @ElementCollection
+    @Lob
     private Map<CountryCode, String> i18nValue;
+
     @Size(min = 2, max = 6)
     @OneToMany(mappedBy = "question", cascade = ALL)
     private List<Answer> answers;
-    @ElementCollection
+
+    @SuppressWarnings("JpaAttributeTypeInspection")
     @MapKeyEnumerated(STRING)
+    @ElementCollection
+    @Lob
     private Map<CountryCode, String> i18nRuling;
+
     private boolean enabled;
 
     public Question() {
@@ -84,6 +95,7 @@ public class Question {
         newQ.setI18nValue(this.getI18nValue());
         return newQ;
     }
+
     public Map<CountryCode, String> getI18nRuling() {
         return i18nRuling;
     }
