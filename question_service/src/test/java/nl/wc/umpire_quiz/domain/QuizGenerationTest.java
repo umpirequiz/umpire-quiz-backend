@@ -1,7 +1,6 @@
 package nl.wc.umpire_quiz.domain;
 
-import nl.wc.umpire_quiz.model.Answer;
-import nl.wc.umpire_quiz.model.Question;
+import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,18 +9,17 @@ import java.util.List;
 import static nl.wc.umpire_quiz.model.Difficulty.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class QuizTest {
-    private Quiz sut;
+class QuizGenerationTest {
+    private QuizGeneration sut;
 
     @BeforeEach
     void setUp() {
-        sut = new Quiz();
+        sut = new QuizGeneration();
     }
 
     @Test
     void QuizHappyFlow() {
-        Question q = new Question();
-        Answer a = new Answer();
+        QuizGenerationQuestionDto q = new QuizGenerationQuestionDto();
 
         assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(UMPIRE_2, UMPIRE_3, UMPIRE_4, UMPIRE_1));
 
@@ -33,9 +31,6 @@ class QuizTest {
 
         sut.setQuestions(List.of(q));
         assertThat(sut.getQuestions()).containsExactly(q);
-
-        sut.setGivenAnswers(List.of(a));
-        assertThat(sut.getGivenAnswers()).containsExactly(a);
     }
 
 }

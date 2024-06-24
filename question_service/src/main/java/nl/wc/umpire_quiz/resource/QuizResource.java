@@ -1,11 +1,9 @@
 package nl.wc.umpire_quiz.resource;
 
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import nl.wc.umpire_quiz.domain.Quiz;
+import jakarta.ws.rs.*;
+import nl.wc.umpire_quiz.domain.QuizGeneration;
+import nl.wc.umpire_quiz.domain.QuizValidation;
 import nl.wc.umpire_quiz.service.QuizService;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -22,7 +20,12 @@ public class QuizResource {
     }
 
     @POST
-    public Quiz generateQuiz(Quiz quiz) {
-        return service.generateQuiz(quiz);
+    public QuizGeneration generateQuiz(QuizGeneration quizGeneration) {
+        return service.generateQuiz(quizGeneration);
+    }
+
+    @PUT
+    public QuizValidation validateQuiz(QuizGeneration quizGeneration) {
+        return service.validateQuiz(quizGeneration);
     }
 }

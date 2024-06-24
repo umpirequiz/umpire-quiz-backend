@@ -131,7 +131,8 @@ class ImportedQuestionTest {
 
         assertThat(q).isNotNull();
         assertThat(q.isEnabled()).isTrue();
-        assertThat(q.getAnswers()).isNotNull();
+        assertThat(q.getAnswers()).isNotNull()
+                                  .isNotEmpty();
         assertThat(q.getGameState()).isNotNull();
         assertThat(q.getDifficulty()).isNotNull();
         assertThat(q.getI18nValue()).isNotNull();

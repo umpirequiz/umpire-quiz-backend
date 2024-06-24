@@ -3,6 +3,7 @@ package nl.wc.umpire_quiz.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class Question {
 
     @Size(min = 2, max = 6)
     @OneToMany(mappedBy = "question", cascade = ALL)
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<>();
 
     @SuppressWarnings("JpaAttributeTypeInspection")
     @MapKeyEnumerated(STRING)
