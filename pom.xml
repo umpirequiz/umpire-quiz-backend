@@ -6,7 +6,7 @@
 
     <groupId>nl.wc.umpire_quiz</groupId>
     <artifactId>parent_pom</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>pom</packaging>
 
     <modules>
