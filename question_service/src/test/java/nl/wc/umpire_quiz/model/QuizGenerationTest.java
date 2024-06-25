@@ -34,7 +34,7 @@ class QuizGenerationTest {
 
     @Test
     void intAndListConstructor() {
-        QuizGeneration sut = new QuizGeneration(15, List.of(UMPIRE_2));
+        sut = new QuizGeneration(15, List.of(UMPIRE_2));
 
         assertThat(sut.getQuizSize()).isEqualTo(15);
         assertThat(sut.getDifficulties()).containsExactly(UMPIRE_2);
