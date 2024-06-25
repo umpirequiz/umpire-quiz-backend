@@ -1,6 +1,5 @@
-package nl.wc.umpire_quiz.domain;
+package nl.wc.umpire_quiz.model;
 
-import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,4 +32,20 @@ class QuizGenerationTest {
         assertThat(sut.getQuestions()).containsExactly(q);
     }
 
+    @Test
+    void intAndListConstructor() {
+        QuizGeneration sut = new QuizGeneration(15, List.of(UMPIRE_2));
+
+        assertThat(sut.getQuizSize()).isEqualTo(15);
+        assertThat(sut.getDifficulties()).containsExactly(UMPIRE_2);
+    }
+
+    @Test
+    void setDifficulties() {
+        sut.setDifficulties(List.of());
+        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(UMPIRE_2, UMPIRE_3, UMPIRE_4, UMPIRE_1));
+
+        sut.setDifficulties(List.of(UMPIRE_1));
+        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(UMPIRE_1));
+    }
 }

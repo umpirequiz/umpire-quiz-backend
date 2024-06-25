@@ -1,6 +1,5 @@
-package nl.wc.umpire_quiz.domain;
+package nl.wc.umpire_quiz.model;
 
-import nl.wc.umpire_quiz.model.Question;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

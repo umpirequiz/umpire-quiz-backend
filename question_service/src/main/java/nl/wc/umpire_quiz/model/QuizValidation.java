@@ -1,7 +1,4 @@
-package nl.wc.umpire_quiz.domain;
-
-import nl.wc.umpire_quiz.model.Difficulty;
-import nl.wc.umpire_quiz.model.Question;
+package nl.wc.umpire_quiz.model;
 
 import java.util.List;
 

@@ -1,7 +1,4 @@
-package nl.wc.umpire_quiz.domain;
-
-import nl.wc.umpire_quiz.model.Difficulty;
-import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
+package nl.wc.umpire_quiz.model;
 
 import java.util.List;
 
@@ -20,12 +17,25 @@ public class QuizGeneration {
         //Needed for JPA
     }
 
+    public QuizGeneration(int quizSize, List<Difficulty> difficulties) {
+        setQuizSize(quizSize);
+        setDifficulties(difficulties);
+    }
+
     public List<Difficulty> getDifficulties() {
         return difficulties;
     }
 
     public void setDifficulties(List<Difficulty> difficulties) {
-        this.difficulties = difficulties;
+        if (difficulties.isEmpty()) {
+            this.difficulties = List.of(
+                    UMPIRE_1,
+                    UMPIRE_2,
+                    UMPIRE_3,
+                    UMPIRE_4);
+        } else {
+            this.difficulties = difficulties;
+        }
     }
 
     public List<QuizGenerationQuestionDto> getQuestions() {
