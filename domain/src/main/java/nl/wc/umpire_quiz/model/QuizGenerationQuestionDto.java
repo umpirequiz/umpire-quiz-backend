@@ -1,12 +1,11 @@
 package nl.wc.umpire_quiz.model;
 
 import java.util.List;
-import java.util.Map;
 
 public class QuizGenerationQuestionDto {
     private long id;
     private GameState gameState;
-    private Map<CountryCode, String> i18nValue;
+    private InternationalizedStrings i18nValue;
     private List<QuizGenerationAnswerDto> answers;
 
     public QuizGenerationQuestionDto() {
@@ -35,11 +34,11 @@ public class QuizGenerationQuestionDto {
         this.answers = answers;
     }
 
-    public Map<CountryCode, String> getI18nValue() {
+    public InternationalizedStrings getI18nValue() {
         return i18nValue;
     }
 
-    public void setI18nValue(Map<CountryCode, String> i18nValue) {
+    public void setI18nValue(InternationalizedStrings i18nValue) {
         this.i18nValue = i18nValue;
     }
 

@@ -1,10 +1,8 @@
 package nl.wc.umpire_quiz.model;
 
-import java.util.Map;
-
 public class QuizGenerationAnswerDto {
     private long id;
-    private Map<CountryCode, String> i18nValue;
+    private InternationalizedStrings i18nValue;
 
     public QuizGenerationAnswerDto() {
         //Needed?
@@ -23,11 +21,11 @@ public class QuizGenerationAnswerDto {
         this.id = id;
     }
 
-    public Map<CountryCode, String> getI18nValue() {
+    public InternationalizedStrings getI18nValue() {
         return i18nValue;
     }
 
-    public void setI18nValue(Map<CountryCode, String> i18nValue) {
+    public void setI18nValue(InternationalizedStrings i18nValue) {
         this.i18nValue = i18nValue;
     }
 }

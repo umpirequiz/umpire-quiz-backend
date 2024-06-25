@@ -2,10 +2,6 @@ package nl.wc.umpire_quiz.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Map;
-
-import static nl.wc.umpire_quiz.model.CountryCode.EN_US;
-import static nl.wc.umpire_quiz.model.CountryCode.NL_NL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class QuizGenerationAnswerDtoTest {
@@ -17,8 +13,12 @@ class QuizGenerationAnswerDtoTest {
         a.setId(42L);
         assertThat(a.getId()).isEqualTo(42L);
 
-        a.setI18nValue(Map.of(NL_NL, "Ja", EN_US, "Yes"));
-        assertThat(a.getI18nValue()).isEqualTo(Map.of(NL_NL, "Ja", EN_US, "Yes"));
+        a.setI18nValue(new InternationalizedStrings("Ja", "Yes"));
+
+        assertThat(a.getI18nValue()
+                    .getNlNL()).isEqualTo("Ja");
+        assertThat(a.getI18nValue()
+                    .getEnUS()).isEqualTo("Yes");
     }
 
     @Test
@@ -26,11 +26,15 @@ class QuizGenerationAnswerDtoTest {
         Answer a = new Answer();
         a.setId(55);
         a.setCorrect(true);
-        a.setI18nValue(Map.of(NL_NL, "Nee", EN_US, "No"));
+        a.setI18nValue(new InternationalizedStrings("Nee", "No"));
 
         QuizGenerationAnswerDto aDto = new QuizGenerationAnswerDto(a);
 
         assertThat(aDto.getId()).isEqualTo(55);
-        assertThat(aDto.getI18nValue()).isEqualTo(Map.of(NL_NL, "Nee", EN_US, "No"));
+
+        assertThat(aDto.getI18nValue()
+                       .getNlNL()).isEqualTo("Nee");
+        assertThat(aDto.getI18nValue()
+                       .getEnUS()).isEqualTo("No");
     }
 }

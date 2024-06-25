@@ -3,10 +3,7 @@ package nl.wc.umpire_quiz.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
-import static nl.wc.umpire_quiz.model.CountryCode.EN_US;
-import static nl.wc.umpire_quiz.model.CountryCode.NL_NL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class QuizGenerationQuestionDtoTest {
@@ -37,17 +34,17 @@ class QuizGenerationQuestionDtoTest {
         Answer a1 = new Answer();
         a1.setId(42);
         a1.setCorrect(false);
-        a1.setI18nValue(Map.of(NL_NL, "Ja", EN_US, "Yes"));
+        a1.setI18nValue(new InternationalizedStrings("Ja", "Yes"));
 
         Answer a2 = new Answer();
         a2.setId(55);
         a2.setCorrect(true);
-        a2.setI18nValue(Map.of(NL_NL, "Nee", EN_US, "No"));
+        a2.setI18nValue(new InternationalizedStrings("Nee", "No"));
 
 
         Question q = new Question();
         q.setId(21);
-        q.setI18nValue(Map.of(NL_NL, "Vraag", EN_US, "Question"));
+        q.setI18nValue(new InternationalizedStrings("Vraag", "Question"));
         q.setGameState(gs);
         q.setAnswers(List.of(a1, a2));
 
@@ -55,13 +52,13 @@ class QuizGenerationQuestionDtoTest {
 
         assertThat(qDto.getId()).isEqualTo(21);
         assertThat(qDto.getGameState()).isEqualTo(gs);
-        assertThat(qDto.getI18nValue()).containsExactlyInAnyOrderEntriesOf(Map.of(NL_NL, "Vraag", EN_US, "Question"));
+        assertThat(qDto.getI18nValue()).isEqualTo(new InternationalizedStrings("Vraag", "Question"));
 
         List<QuizGenerationAnswerDto> answers = qDto.getAnswers();
 
         assertThat(answers.stream()
                           .map(QuizGenerationAnswerDto::getId)).containsExactlyInAnyOrder(55L, 42L);
         assertThat(answers.stream()
-                          .map(QuizGenerationAnswerDto::getI18nValue)).containsExactlyInAnyOrder(Map.of(NL_NL, "Nee", EN_US, "No"), Map.of(NL_NL, "Ja", EN_US, "Yes"));
+                          .map(QuizGenerationAnswerDto::getI18nValue)).containsExactlyInAnyOrder(new InternationalizedStrings("Nee", "No"), new InternationalizedStrings("Ja", "Yes"));
     }
 }

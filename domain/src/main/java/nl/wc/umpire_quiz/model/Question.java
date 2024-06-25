@@ -5,10 +5,8 @@ import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static jakarta.persistence.CascadeType.ALL;
-import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -23,21 +21,19 @@ public class Question {
 
     private Difficulty difficulty;
 
-    @SuppressWarnings("JpaAttributeTypeInspection")
-    @MapKeyEnumerated(STRING)
-    @ElementCollection
-    @Lob
-    private Map<CountryCode, String> i18nValue;
+    @Embedded
+    @AttributeOverride(name = "enUS", column = @Column(name = "i18nValue_EN_US"))
+    @AttributeOverride(name = "nlNL", column = @Column(name = "i18nValue_NL_NL"))
+    private InternationalizedStrings i18nValue;
 
     @Size(min = 2, max = 6)
     @OneToMany(mappedBy = "question", cascade = ALL)
     private List<Answer> answers = new ArrayList<>();
 
-    @SuppressWarnings("JpaAttributeTypeInspection")
-    @MapKeyEnumerated(STRING)
-    @ElementCollection
-    @Lob
-    private Map<CountryCode, String> i18nRuling;
+    @Embedded
+    @AttributeOverride(name = "enUS", column = @Column(name = "i18nRuling_EN_US"))
+    @AttributeOverride(name = "nlNL", column = @Column(name = "i18nRuling_NL_NL"))
+    private InternationalizedStrings i18nRuling;
 
     private boolean enabled;
 
@@ -69,11 +65,11 @@ public class Question {
         this.difficulty = difficulty;
     }
 
-    public Map<CountryCode, String> getI18nValue() {
+    public InternationalizedStrings getI18nValue() {
         return i18nValue;
     }
 
-    public void setI18nValue(Map<CountryCode, String> i18nValue) {
+    public void setI18nValue(InternationalizedStrings i18nValue) {
         this.i18nValue = i18nValue;
     }
 
@@ -97,11 +93,11 @@ public class Question {
         return newQ;
     }
 
-    public Map<CountryCode, String> getI18nRuling() {
+    public InternationalizedStrings getI18nRuling() {
         return i18nRuling;
     }
 
-    public void setI18nRuling(Map<CountryCode, String> i18nRuling) {
+    public void setI18nRuling(InternationalizedStrings i18nRuling) {
         this.i18nRuling = i18nRuling;
     }
 
