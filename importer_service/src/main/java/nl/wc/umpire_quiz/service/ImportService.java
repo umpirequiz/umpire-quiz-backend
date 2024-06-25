@@ -3,6 +3,7 @@ package nl.wc.umpire_quiz.service;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import nl.wc.umpire_quiz.dao.QuestionDao;
+import nl.wc.umpire_quiz.model.ImportQuestionsCounterDto;
 import nl.wc.umpire_quiz.model.ImportedQuestion;
 
 import java.util.List;
@@ -16,10 +17,12 @@ public class ImportService {
         this.questionDao = questionDao;
     }
 
-    public void importQuestions(List<ImportedQuestion> q) {
-        questionDao.save(q.stream()
-                          .filter(ImportedQuestion::shouldBeImported)
-                          .map(ImportedQuestion::toQuestion)
-                          .toList());
+    public ImportQuestionsCounterDto importQuestions(List<ImportedQuestion> q) {
+        ImportQuestionsCounterDto questions = new ImportQuestionsCounterDto(q.stream()
+                                                                             .filter(ImportedQuestion::shouldBeImported)
+                                                                             .map(ImportedQuestion::toQuestion)
+                                                                             .toList());
+        questionDao.save(questions.getImportedQuestions());
+        return questions;
     }
 }
