@@ -4,10 +4,7 @@ import jakarta.json.bind.annotation.JsonbProperty;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static nl.wc.umpire_quiz.model.CountryCode.EN_US;
-import static nl.wc.umpire_quiz.model.CountryCode.NL_NL;
 import static nl.wc.umpire_quiz.model.Difficulty.*;
 
 public class ImportedQuestion {
@@ -176,12 +173,13 @@ public class ImportedQuestion {
         return q;
     }
 
-    Map<CountryCode, String> transformRuling() {
-        return Map.of(EN_US, this.sRuling, NL_NL, this.sRuling);
+    InternationalizedStrings transformRuling() {
+        return new InternationalizedStrings(this.sRuling, this.sRuling);
+
     }
 
-    Map<CountryCode, String> transformValue() {
-        return Map.of(NL_NL, this.sQuestion, EN_US, this.sQuestion);
+    InternationalizedStrings transformValue() {
+        return new InternationalizedStrings(this.sQuestion, this.sQuestion);
     }
 
     Difficulty transformDifficulty() {

@@ -4,7 +4,7 @@ COPY --chown=0:0 --chmod=755 /src/main/liberty/config /config
 COPY --chown=0:0 --chmod=755 /target/lib/*.jar /opt/ol/wlp/usr/shared/resources
 RUN features.sh
 
-COPY --chown=0:0 --chmod=755 /target/importer_service.war /config/apps
+COPY --chown=0:0 --chmod=755 /target/question_service.war /config/apps
 RUN configure.sh
 
 USER 1001

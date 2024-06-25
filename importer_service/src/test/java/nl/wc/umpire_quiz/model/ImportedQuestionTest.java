@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static nl.wc.umpire_quiz.model.CountryCode.EN_US;
-import static nl.wc.umpire_quiz.model.CountryCode.NL_NL;
 import static nl.wc.umpire_quiz.model.Difficulty.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -92,8 +89,8 @@ class ImportedQuestionTest {
 
     @Test
     void transformRulingAndValue() {
-        assertThat(sut.transformValue()).containsExactlyEntriesOf(Map.of(NL_NL, "Johannes", EN_US, "Johannes"));
-        assertThat(sut.transformRuling()).containsExactlyEntriesOf(Map.of(EN_US, "Bob", NL_NL, "Bob"));
+        assertThat(sut.transformValue()).isEqualTo(new InternationalizedStrings("Johannes", "Johannes"));
+        assertThat(sut.transformRuling()).isEqualTo(new InternationalizedStrings("Bob", "Bob"));
     }
 
     @Test
@@ -122,7 +119,7 @@ class ImportedQuestionTest {
                                 .orElse(null);
 
         assertThat(correct).isNotNull();
-        assertThat(correct.getI18nValue()).containsExactlyInAnyOrderEntriesOf(Map.of(NL_NL, "Nee", EN_US, "Nee"));
+        assertThat(correct.getI18nValue()).isEqualTo(new InternationalizedStrings("Nee", "Nee"));
     }
 
     @Test
@@ -131,7 +128,8 @@ class ImportedQuestionTest {
 
         assertThat(q).isNotNull();
         assertThat(q.isEnabled()).isTrue();
-        assertThat(q.getAnswers()).isNotNull();
+        assertThat(q.getAnswers()).isNotNull()
+                                  .isNotEmpty();
         assertThat(q.getGameState()).isNotNull();
         assertThat(q.getDifficulty()).isNotNull();
         assertThat(q.getI18nValue()).isNotNull();

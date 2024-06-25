@@ -41,7 +41,7 @@ class ImportServiceTest {
                 new ImportedQuestion(false, false, false)
         );
 
-        sut.importQuestions(q);
+        assertThat(sut.importQuestions(q)).isNotNull();
 
         verify(questionDaoMock, times(1)).save(questionCaptor.capture());
 

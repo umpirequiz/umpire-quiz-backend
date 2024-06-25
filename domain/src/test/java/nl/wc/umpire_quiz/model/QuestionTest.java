@@ -3,10 +3,7 @@ package nl.wc.umpire_quiz.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
-import static nl.wc.umpire_quiz.model.CountryCode.EN_US;
-import static nl.wc.umpire_quiz.model.CountryCode.NL_NL;
 import static nl.wc.umpire_quiz.model.Difficulty.UMPIRE_1;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,9 +11,9 @@ class QuestionTest {
 
     @Test
     void testQuestion() {
-        Map<CountryCode, String> ruling1 = Map.of(NL_NL, "Regul", EN_US, "Ruling");
-        Map<CountryCode, String> ruling2 = Map.of(NL_NL, "Regel", EN_US, "Ruling");
-        Map<CountryCode, String> value = Map.of(NL_NL, "Vraag", EN_US, "Question");
+        InternationalizedStrings ruling1 = new InternationalizedStrings("Regul", "Ruling");
+        InternationalizedStrings ruling2 = new InternationalizedStrings("Regel", "Ruling");
+        InternationalizedStrings value = new InternationalizedStrings("Vraag", "Question");
         GameState gameState = new GameState();
         Answer a1 = new Answer();
         Answer a2 = new Answer();
@@ -69,5 +66,4 @@ class QuestionTest {
 
         assertThat(q2.getGameState()).isEqualTo(gameState);
     }
-
 }
