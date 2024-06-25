@@ -1,13 +1,14 @@
 package nl.wc.umpire_quiz.service;
 
 import nl.wc.umpire_quiz.dao.QuestionDao;
-import nl.wc.umpire_quiz.domain.QuizGeneration;
-import nl.wc.umpire_quiz.domain.QuizValidation;
 import nl.wc.umpire_quiz.model.Question;
+import nl.wc.umpire_quiz.model.QuizGeneration;
 import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
+import nl.wc.umpire_quiz.model.QuizValidation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -24,12 +25,18 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class QuizGenerationServiceTest {
+class QuizServiceTest {
     @Mock
     private QuestionDao questionDaoMock;
 
     @InjectMocks
     private QuizService sut;
+
+    @ParameterizedTest
+    @CsvSource({"0,10", "1,1", "2,2"})
+    void quizSizeOrDefault(int size, int expected) {
+        assertThat(sut.quizSizeOrDefault(size)).isEqualTo(expected);
+    }
 
     @ParameterizedTest
     @ValueSource(ints = {5, 10, 15, 20})
@@ -40,7 +47,7 @@ class QuizGenerationServiceTest {
 
         when(questionDaoMock.getQuizQuestions(anyInt(), anyList())).thenReturn(questions);
 
-        quizGeneration = sut.generateQuiz(quizGeneration);
+        quizGeneration = sut.generateQuiz(quizGeneration.getQuizSize(), quizGeneration.getDifficulties());
 
         assertThat(quizGeneration.getQuizSize()).isEqualTo(amount);
         assertThat(quizGeneration.getQuestions()).containsExactlyInAnyOrderElementsOf(questions);
