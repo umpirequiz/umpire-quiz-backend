@@ -5,7 +5,6 @@ import org.junitpioneer.jupiter.SetEnvironmentVariable;
 
 import static nl.wc.umpire_quiz.util.EnvironmentUtil.getFrontendUrl;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class EnvironmentUtilTest {
 
