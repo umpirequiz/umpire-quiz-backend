@@ -6,9 +6,5 @@ RUN features.sh
 
 COPY --chown=0:0 --chmod=755 /target/question_service.war /config/apps
 RUN configure.sh
-HEALTHCHECK --interval=30s \
-            --timeout=2s \
-            --start-period=5s \
-            --retries=3 \
-            CMD "curl http://localhost:9080/health/ready"
+
 USER 1001
