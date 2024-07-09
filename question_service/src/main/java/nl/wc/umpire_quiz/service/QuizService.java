@@ -11,7 +11,7 @@ import java.util.List;
 
 @Dependent
 public class QuizService {
-    public static final int DEFAULT_SIZE = 10;
+    public static final int DEFAULT_SIZE = 5;
     private final QuestionDao questionDao;
 
     @Inject
