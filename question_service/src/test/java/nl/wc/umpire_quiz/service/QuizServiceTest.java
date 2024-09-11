@@ -33,7 +33,7 @@ class QuizServiceTest {
     private QuizService sut;
 
     @ParameterizedTest
-    @CsvSource({"0,10", "1,1", "2,2"})
+    @CsvSource({"0,5", "1,1", "2,2"})
     void quizSizeOrDefault(int size, int expected) {
         assertThat(sut.quizSizeOrDefault(size)).isEqualTo(expected);
     }

@@ -39,6 +39,10 @@ public class QuestionDao {
         return save(q.copy());
     }
 
+    public List<Question> findAll() {
+        return this.em.createNamedQuery("Question.findAll", Question.class).getResultList();
+    }
+
     public Question find(int id) {
         return this.find((long) id);
     }
@@ -50,18 +54,18 @@ public class QuestionDao {
     public List<QuizGenerationQuestionDto> getQuizQuestions(int quizSize, List<Difficulty> difficulties) {
         String query = "SELECT q FROM Question q WHERE q.enabled = TRUE AND q.difficulty IN :difficulties";
         List<Question> validQuestions = em.createQuery(query, Question.class)
-                                          .setParameter("difficulties", difficulties)
-                                          .getResultList();
+                .setParameter("difficulties", difficulties)
+                .getResultList();
         Collections.shuffle(validQuestions);
         try {
             return validQuestions.subList(0, quizSize)
-                                 .stream()
-                                 .map(QuizGenerationQuestionDto::new)
-                                 .toList();
+                    .stream()
+                    .map(QuizGenerationQuestionDto::new)
+                    .toList();
         } catch (IndexOutOfBoundsException e) {
             return validQuestions.stream()
-                                 .map(QuizGenerationQuestionDto::new)
-                                 .toList();
+                    .map(QuizGenerationQuestionDto::new)
+                    .toList();
         }
     }
 }

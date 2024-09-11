@@ -10,6 +10,7 @@ import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
+@NamedQuery(name = "Question.findAll", query = "select q from Question q")
 public class Question {
 
     @Id

@@ -1,7 +1,7 @@
 package nl.wc.umpire_quiz.util;
 
-public enum EnvironmentUtil {
-    
+public class EnvironmentUtil {
+
     private static final String FRONTEND_URL = "http://localhost:4200";
 
     public static String getFrontendUrl() {
