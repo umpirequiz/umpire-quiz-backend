@@ -28,19 +28,29 @@ public class QuestionDao {
 
     @Transactional
     public void delete(Question q) {
-        Question qDatabase = em.find(Question.class, q.getId());
+        delete(q.getId());
+    }
+
+    @Transactional
+    public void delete(long id) {
+        Question qDatabase = em.find(Question.class, id);
         qDatabase.setEnabled(false);
         save(qDatabase);
     }
 
     @Transactional
-    public Question update(Question q) {
-        delete(q);
+    public Question update(long id, Question q) {
+        delete(id);
         return save(q.copy());
     }
 
-    public List<Question> findAll() {
-        return this.em.createNamedQuery("Question.findAll", Question.class).getResultList();
+    public List<Question> findBy(String term) {
+        if (term == null || term.isBlank()) {
+            return this.em.createNamedQuery("Question.findAll", Question.class).getResultList();
+        }
+        return this.em.createNamedQuery("Question.findBy", Question.class)
+                .setParameter("q", "%" + term + "%")
+                .getResultList();
     }
 
     public Question find(int id) {

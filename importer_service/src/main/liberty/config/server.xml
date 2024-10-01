@@ -6,7 +6,6 @@
     <variable name="MYSQL_ROOT_PASSWORD" defaultValue="root"/>
     <variable name="DATABASE_NAME" defaultValue="data"/>
     <variable name="JWT_SHAREDKEY" defaultValue="mySecret"/>
-
     <featureManager>
         <feature>cdi-4.0</feature>
         <feature>mpRestClient-3.0</feature>
@@ -23,7 +22,7 @@
 
     <mpJwt id="test" sharedKey="${JWT_SHAREDKEY}"/>
 
-    <httpEndpoint id="defaultHttpEndpoint" httpPort="9080" httpsPort="9443"/>
+    <httpEndpoint id="defaultHttpEndpoint" httpPort="9081" httpsPort="9444"/>
     <applicationManager autoExpand="true"/>
 
     <webApplication contextRoot="/importer-api" location="importer_service.war"/>

@@ -1,6 +1,13 @@
 package nl.wc.umpire_quiz.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -10,7 +17,8 @@ import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@NamedQuery(name = "Question.findAll", query = "select q from Question q")
+@NamedQuery(name = "Question.findAll", query = "select q from Question q where q.enabled = true")
+@NamedQuery(name = "Question.findBy", query = "select q from Question q where q.enabled = true and (q.i18nValue.enUS like :q or q.i18nValue.nlNL like :q)")
 public class Question {
 
     @Id

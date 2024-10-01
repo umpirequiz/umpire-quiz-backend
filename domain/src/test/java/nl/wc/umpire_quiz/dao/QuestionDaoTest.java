@@ -83,7 +83,7 @@ class QuestionDaoTest {
         when(emMock.merge(any(Question.class))).thenReturn(question);
         when(emMock.find(Question.class, 1L)).thenReturn(question);
 
-        assertThat(sut.update(question)).isEqualTo(question);
+        assertThat(sut.update(1L, question)).isEqualTo(question);
 
         verify(emMock, times(2)).merge(any(Question.class));
         verify(emMock, times(1)).find(Question.class, 1L);
