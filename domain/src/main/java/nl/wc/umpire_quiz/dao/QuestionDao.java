@@ -44,20 +44,16 @@ public class QuestionDao {
         return save(q.copy());
     }
 
-    public List<Question> findBy(String term) {
-        return findBy(term, false);
-    }
-
     public List<Question> findBy(String term, boolean enabledQuestionsOnly) {
         if (!enabledQuestionsOnly) {
             return this.em.createNamedQuery("Question.findAll", Question.class).getResultList();
         }
 
         if (term == null || term.isBlank()) {
-            return this.em.createNamedQuery("Question.findAllActive", Question.class).getResultList();
+            return this.em.createNamedQuery("Question.findEnabled", Question.class).getResultList();
         }
 
-        return this.em.createNamedQuery("Question.findBy", Question.class)
+        return this.em.createNamedQuery("Question.findEnabledBy", Question.class)
                 .setParameter("q", "%" + term + "%")
                 .getResultList();
     }
