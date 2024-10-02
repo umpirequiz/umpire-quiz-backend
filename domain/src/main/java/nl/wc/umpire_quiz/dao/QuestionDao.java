@@ -48,14 +48,15 @@ public class QuestionDao {
         return findBy(term, false);
     }
 
-    public List<Question> findBy(String term, boolean includeInactive) {
-        if (includeInactive) {
+    public List<Question> findBy(String term, boolean enabledQuestionsOnly) {
+        if (!enabledQuestionsOnly) {
             return this.em.createNamedQuery("Question.findAll", Question.class).getResultList();
         }
 
         if (term == null || term.isBlank()) {
             return this.em.createNamedQuery("Question.findAllActive", Question.class).getResultList();
         }
+
         return this.em.createNamedQuery("Question.findBy", Question.class)
                 .setParameter("q", "%" + term + "%")
                 .getResultList();
