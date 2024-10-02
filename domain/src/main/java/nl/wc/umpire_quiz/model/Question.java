@@ -17,7 +17,8 @@ import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@NamedQuery(name = "Question.findAll", query = "select q from Question q where q.enabled = true")
+@NamedQuery(name = "Question.findAll", query = "select q from Question q")
+@NamedQuery(name = "Question.findAllActive", query = "select q from Question q where q.enabled = true")
 @NamedQuery(name = "Question.findBy", query = "select q from Question q where q.enabled = true and (q.i18nValue.enUS like :q or q.i18nValue.nlNL like :q)")
 public class Question {
 

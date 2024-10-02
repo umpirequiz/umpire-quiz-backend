@@ -23,7 +23,7 @@
 
     <mpJwt id="test" sharedKey="${JWT_SHAREDKEY}"/>
 
-    <httpEndpoint id="defaultHttpEndpoint" httpPort="9080" httpsPort="9443"/>
+    <httpEndpoint id="defaultHttpEndpoint" httpPort="9082" httpsPort="9445"/>
     <applicationManager autoExpand="true"/>
 
     <webApplication contextRoot="/api" location="question_service.war"/>
