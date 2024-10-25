@@ -6,13 +6,13 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Data
+@Getter @Setter
 @Builder @AllArgsConstructor @NoArgsConstructor //@RequiredArgsConstructor
 public class Question {
 
@@ -70,5 +70,4 @@ public class Question {
         newQ.setI18nValue(this.getI18nValue());
         return newQ;
     }
-
 }
