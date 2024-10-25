@@ -21,7 +21,11 @@ import static nl.wc.umpire_quiz.model.Difficulty.UMPIRE_1;
 import static nl.wc.umpire_quiz.model.Difficulty.UMPIRE_2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class QuestionDaoTest {
@@ -101,6 +105,20 @@ class QuestionDaoTest {
         verify(emMock, times(2)).find(Question.class, 42L);
     }
 
+    @Test
+    void findBy() {
+        List<Question> questions = createQuestionList();
+        when(emMock.createQuery(anyString(), eq(Question.class))).thenReturn(queryMock);
+        when(queryMock.getResultList()).thenReturn(questions);
+
+        assertThat(sut.findBy("", false)).isEqualTo(questions);
+        assertThat(sut.findBy("term", false)).isEqualTo(questions);
+        assertThat(sut.findBy("", true)).isEqualTo(questions);
+        assertThat(sut.findBy("term", true)).isEqualTo(questions);
+
+        verify(emMock, times(4)).createQuery(anyString(), eq(Question.class));
+    }
+
     @ParameterizedTest
     @CsvSource({"5,5", "10,10", "20,20", "30,30", "40,40", "50,50", "60,55"})
     void getQuizQuestions(int quizSize, int expected) {
@@ -115,18 +133,40 @@ class QuestionDaoTest {
         assertThat(sut.getQuizQuestions(quizSize, difficulties)).hasSize(expected);
 
         assertThat(questions1).hasSameSizeAs(questions)
-                              .containsExactlyInAnyOrderElementsOf(questions)
-                              .isNotEqualTo(questions);
+                .containsExactlyInAnyOrderElementsOf(questions)
+                .isNotEqualTo(questions);
 
         verify(emMock, times(1)).createQuery(anyString(), eq(Question.class));
         verify(queryMock, times(1)).setParameter("difficulties", difficulties);
         verify(queryMock, times(1)).getResultList();
     }
 
+    @Test
+    void query() {
+        String query = sut.query(null, false);
+        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q where q.enabled = true");
+
+        query = sut.query(null, true);
+        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q");
+
+        String term = "batter";
+        query = sut.query(term, false);
+        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q where (q.i18nValue.enUS like " + term + " or q.i18nValue.nlNL like " + term + ") and q.enabled = true");
+
+        query = sut.query(term, true);
+        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q where (q.i18nValue.enUS like " + term + " or q.i18nValue.nlNL like " + term + ")");
+
+        query = sut.query("    ", false);
+        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q where q.enabled = true");
+
+        query = sut.query("    ", true);
+        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q");
+    }
+
     private List<Question> createQuestionList() {
         List<Question> questions = new ArrayList<>();
         IntStream.range(0, 55)
-                 .forEach(x -> questions.add(new Question()));
+                .forEach(x -> questions.add(new Question()));
         return questions;
     }
 }

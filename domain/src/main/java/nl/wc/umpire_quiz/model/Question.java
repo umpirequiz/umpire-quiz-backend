@@ -23,9 +23,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Data
 @Builder @AllArgsConstructor @NoArgsConstructor //@RequiredArgsConstructor
-@NamedQuery(name = "Question.findAll", query = "select q from Question q")
-@NamedQuery(name = "Question.findEnabled", query = "select q from Question q where q.enabled = true")
-@NamedQuery(name = "Question.findEnabledBy", query = "select q from Question q where q.enabled = true and (q.i18nValue.enUS like :q or q.i18nValue.nlNL like :q)")
 public class Question {
 
     @Id

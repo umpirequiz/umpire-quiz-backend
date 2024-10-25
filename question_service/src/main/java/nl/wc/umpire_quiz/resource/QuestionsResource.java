@@ -31,9 +31,9 @@ public class QuestionsResource {
     }
 
     @GET
-    public Response getAll(@QueryParam("q") String term, @QueryParam("enabled") boolean enabledOnly) {
+    public Response getAll(@QueryParam("q") String term, @QueryParam("all") boolean all) {
         return Response.status(OK)
-                .entity(dao.findBy(term, enabledOnly))
+                .entity(dao.findBy(term, all))
                 .build();
     }
 

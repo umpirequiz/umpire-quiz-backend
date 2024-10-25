@@ -10,6 +10,7 @@ import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 
 @Dependent
 public class QuestionDao {
@@ -44,18 +45,25 @@ public class QuestionDao {
         return save(q.copy());
     }
 
-    public List<Question> findBy(String term, boolean enabledQuestionsOnly) {
-        if (!enabledQuestionsOnly) {
-            return this.em.createNamedQuery("Question.findAll", Question.class).getResultList();
-        }
-
-        if (term == null || term.isBlank()) {
-            return this.em.createNamedQuery("Question.findEnabled", Question.class).getResultList();
-        }
-
-        return this.em.createNamedQuery("Question.findEnabledBy", Question.class)
-                .setParameter("q", "%" + term + "%")
+    public List<Question> findBy(String term, boolean allQuestions) {
+        return this.em.createQuery(query(term, allQuestions), Question.class)
                 .getResultList();
+    }
+
+    String query(String term, boolean allQuestions) {
+        StringBuilder query = new StringBuilder("select q from Question q");
+        if ((term != null && !term.isBlank()) || !allQuestions) {
+            query.append(" where ");
+            StringJoiner where = new StringJoiner(" and ");
+            if (term != null && !term.isBlank()) {
+                where.add("(q.i18nValue.enUS like " + term + " or q.i18nValue.nlNL like " + term + ")");
+            }
+            if (!allQuestions) {
+                where.add("q.enabled = true");
+            }
+            query.append(where);
+        }
+        return query.toString();
     }
 
     public Question find(int id) {
