@@ -110,6 +110,7 @@ class QuestionDaoTest {
         List<Question> questions = createQuestionList();
         when(emMock.createQuery(anyString(), eq(Question.class))).thenReturn(queryMock);
         when(queryMock.getResultList()).thenReturn(questions);
+        when(queryMock.setParameter(anyString(), anyString())).thenReturn(queryMock);
 
         assertThat(sut.findBy("", false)).isEqualTo(questions);
         assertThat(sut.findBy("term", false)).isEqualTo(questions);
@@ -149,7 +150,7 @@ class QuestionDaoTest {
         query = sut.query(null, true);
         assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q");
 
-        String term = "batter";
+        String term = ":term";
         query = sut.query(term, false);
         assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q where (q.i18nValue.enUS like " + term + " or q.i18nValue.nlNL like " + term + ") and q.enabled = true");
 

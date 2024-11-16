@@ -47,6 +47,7 @@ public class QuestionDao {
 
     public List<Question> findBy(String term, boolean allQuestions) {
         return this.em.createQuery(query(term, allQuestions), Question.class)
+                .setParameter(":term", term)
                 .getResultList();
     }
 
@@ -56,7 +57,7 @@ public class QuestionDao {
             query.append(" where ");
             StringJoiner where = new StringJoiner(" and ");
             if (term != null && !term.isBlank()) {
-                where.add("(q.i18nValue.enUS like " + term + " or q.i18nValue.nlNL like " + term + ")");
+                where.add("(q.i18nValue.enUS like :term or q.i18nValue.nlNL like :term)");
             }
             if (!allQuestions) {
                 where.add("q.enabled = true");
