@@ -23,6 +23,7 @@
         <majorVersion>${project.artifact.selectedVersion.majorVersion}</majorVersion>
         <!--suppress UnresolvedMavenProperty -->
         <minorVersion>${project.artifact.selectedVersion.minorVersion}</minorVersion>
+        <pitest.execution.skip>true</pitest.execution.skip> 
     </properties>
 
     <dependencyManagement>

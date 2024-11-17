@@ -3,6 +3,7 @@ package nl.wc.umpire_quiz.dao;
 import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import nl.wc.umpire_quiz.model.Difficulty;
 import nl.wc.umpire_quiz.model.Question;
@@ -46,17 +47,19 @@ public class QuestionDao {
     }
 
     public List<Question> findBy(String term, boolean allQuestions) {
-        return this.em.createQuery(query(term, allQuestions), Question.class)
-                .setParameter(":term", term)
-                .getResultList();
+        TypedQuery<Question> query = this.em.createQuery(query(term, allQuestions), Question.class);
+        if (isPresent(term)) {
+            query.setParameter("term", "%" + term + "%");
+        }
+        return query.getResultList();
     }
 
     String query(String term, boolean allQuestions) {
         StringBuilder query = new StringBuilder("select q from Question q");
-        if ((term != null && !term.isBlank()) || !allQuestions) {
+        if (isPresent(term) || !allQuestions) {
             query.append(" where ");
             StringJoiner where = new StringJoiner(" and ");
-            if (term != null && !term.isBlank()) {
+            if (isPresent(term)) {
                 where.add("(q.i18nValue.enUS like :term or q.i18nValue.nlNL like :term)");
             }
             if (!allQuestions) {
@@ -65,6 +68,10 @@ public class QuestionDao {
             query.append(where);
         }
         return query.toString();
+    }
+
+    private boolean isPresent(String term) {
+        return (term != null && !term.isBlank());
     }
 
     public Question find(int id) {
@@ -77,7 +84,8 @@ public class QuestionDao {
 
     public List<QuizGenerationQuestionDto> getQuizQuestions(int quizSize, List<Difficulty> difficulties) {
         String query = "SELECT q FROM Question q WHERE q.enabled = TRUE AND q.difficulty IN :difficulties";
-        List<Question> validQuestions = em.createQuery(query, Question.class)
+        List<Question> validQuestions = em.createQuery(
+                query, Question.class)
                 .setParameter("difficulties", difficulties)
                 .getResultList();
         Collections.shuffle(validQuestions);

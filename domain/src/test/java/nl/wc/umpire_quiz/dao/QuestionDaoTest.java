@@ -117,6 +117,7 @@ class QuestionDaoTest {
         assertThat(sut.findBy("", true)).isEqualTo(questions);
         assertThat(sut.findBy("term", true)).isEqualTo(questions);
 
+        verify(queryMock, times(2)).setParameter(anyString(), anyString());
         verify(emMock, times(4)).createQuery(anyString(), eq(Question.class));
     }
 

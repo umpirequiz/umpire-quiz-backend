@@ -52,6 +52,7 @@
                         <format>XML</format>
                         <format>HTML</format>
                     </outputFormats>
+                    <skip>${pitest.execution.skip}</skip>
                 </configuration>
                 <executions>
                     <execution>
