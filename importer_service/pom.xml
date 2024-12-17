@@ -78,7 +78,7 @@
                         <format>XML</format>
                         <format>HTML</format>
                     </outputFormats>
-                    <skip>${pitest.execution.skip}</skip>
+                    <skip>${skipPit}</skip>
                 </configuration>
                 <executions>
                     <execution>
