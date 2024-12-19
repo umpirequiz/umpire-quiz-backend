@@ -30,9 +30,8 @@
                 <configuration>
                     <images>
                         <image>
-                            <removeNamePattern>opleiding-harbor.bcverdouw.nl/wc/umpire_quiz_questionservice:**
-                            </removeNamePattern>
-                            <name>opleiding-harbor.bcverdouw.nl/wc/umpire_quiz_questionservice</name>
+                            <removeNamePattern>bramjanssens/umpire-quiz-question-service:**</removeNamePattern>
+                            <name>bramjanssens/umpire-quiz-question-service</name>
                             <build>
                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                 <tags>
