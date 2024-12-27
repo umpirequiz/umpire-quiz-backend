@@ -28,7 +28,7 @@
     </dependencies>
 
     <build>
-        <finalName>importer_service</finalName>
+        <finalName>importer</finalName>
         <plugins>
             <plugin>
                 <groupId>io.fabric8</groupId>

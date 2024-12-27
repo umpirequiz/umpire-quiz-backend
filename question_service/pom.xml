@@ -21,7 +21,7 @@
     </dependencies>
 
     <build>
-        <finalName>question_service</finalName>
+        <finalName>question</finalName>
         <plugins>
             <plugin>
                 <groupId>io.fabric8</groupId>
