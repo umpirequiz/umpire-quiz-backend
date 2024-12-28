@@ -3,7 +3,7 @@
     <variable name="MYSQL_HOSTNAME" defaultValue="localhost"/>
     <variable name="MYSQL_PORT" defaultValue="3306"/>
     <variable name="MYSQL_ROOT_PASSWORD" defaultValue="root"/>
-    <variable name="MYSQL_DATABASE" defaultValue="question-db"/>
+    <variable name="MYSQL_DATABASE" defaultValue="questions-db"/>
     <variable name="MYSQL_USE_SSL" defaultValue="true"/>
     <variable name="JWT_SHAREDKEY" defaultValue="mySecret"/>
 
