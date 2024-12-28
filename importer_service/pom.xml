@@ -7,7 +7,7 @@
     <parent>
         <groupId>nl.wc.umpire_quiz</groupId>
         <artifactId>parent_pom</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>importer_service</artifactId>
@@ -33,22 +33,11 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.44.0</version>
                 <configuration>
                     <images>
                         <image>
-                            <removeNamePattern>opleiding-harbor.bcverdouw.nl/wc/umpire_quiz_importerservice:**
-                            </removeNamePattern>
-                            <name>opleiding-harbor.bcverdouw.nl/wc/umpire_quiz_importerservice</name>
-                            <build>
-                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-                                <tags>
-                                    <tag>latest</tag>
-                                    <tag>${project.version}</tag>
-                                    <tag>${majorVersion}-latest</tag>
-                                    <tag>${majorVersion}.${minorVersion}-latest</tag>
-                                </tags>
-                            </build>
+                            <removeNamePattern>bramjanssens/umpire-quiz-importer-service:**</removeNamePattern>
+                            <name>bramjanssens/umpire-quiz-importer-service</name>
                         </image>
                     </images>
                 </configuration>
