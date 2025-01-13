@@ -3,6 +3,7 @@ package nl.wc.umpire_quiz.dao;
 import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import nl.wc.umpire_quiz.model.Difficulty;
 import nl.wc.umpire_quiz.model.Question;
@@ -10,6 +11,7 @@ import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 
 @Dependent
 public class QuestionDao {
@@ -28,15 +30,48 @@ public class QuestionDao {
 
     @Transactional
     public void delete(Question q) {
-        Question qDatabase = em.find(Question.class, q.getId());
+        delete(q.getId());
+    }
+
+    @Transactional
+    public void delete(long id) {
+        Question qDatabase = em.find(Question.class, id);
         qDatabase.setEnabled(false);
         save(qDatabase);
     }
 
     @Transactional
-    public Question update(Question q) {
-        delete(q);
+    public Question update(long id, Question q) {
+        delete(id);
         return save(q.copy());
+    }
+
+    public List<Question> findBy(String term, boolean allQuestions) {
+        TypedQuery<Question> query = this.em.createQuery(query(term, allQuestions), Question.class);
+        if (isPresent(term)) {
+            query.setParameter("term", "%" + term + "%");
+        }
+        return query.getResultList();
+    }
+
+    String query(String term, boolean allQuestions) {
+        StringBuilder query = new StringBuilder("select q from Question q");
+        if (isPresent(term) || !allQuestions) {
+            query.append(" where ");
+            StringJoiner where = new StringJoiner(" and ");
+            if (isPresent(term)) {
+                where.add("(q.i18nValue.enUS like :term or q.i18nValue.nlNL like :term)");
+            }
+            if (!allQuestions) {
+                where.add("q.enabled = true");
+            }
+            query.append(where);
+        }
+        return query.toString();
+    }
+
+    private boolean isPresent(String term) {
+        return (term != null && !term.isBlank());
     }
 
     public Question find(int id) {
@@ -49,19 +84,20 @@ public class QuestionDao {
 
     public List<QuizGenerationQuestionDto> getQuizQuestions(int quizSize, List<Difficulty> difficulties) {
         String query = "SELECT q FROM Question q WHERE q.enabled = TRUE AND q.difficulty IN :difficulties";
-        List<Question> validQuestions = em.createQuery(query, Question.class)
-                                          .setParameter("difficulties", difficulties)
-                                          .getResultList();
+        List<Question> validQuestions = em.createQuery(
+                query, Question.class)
+                .setParameter("difficulties", difficulties)
+                .getResultList();
         Collections.shuffle(validQuestions);
         try {
             return validQuestions.subList(0, quizSize)
-                                 .stream()
-                                 .map(QuizGenerationQuestionDto::new)
-                                 .toList();
+                    .stream()
+                    .map(QuizGenerationQuestionDto::new)
+                    .toList();
         } catch (IndexOutOfBoundsException e) {
             return validQuestions.stream()
-                                 .map(QuizGenerationQuestionDto::new)
-                                 .toList();
+                    .map(QuizGenerationQuestionDto::new)
+                    .toList();
         }
     }
 }

@@ -1,7 +1,18 @@
 package nl.wc.umpire_quiz.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +21,8 @@ import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
+@Getter @Setter
+@Builder @AllArgsConstructor @NoArgsConstructor //@RequiredArgsConstructor
 public class Question {
 
     @Id
@@ -28,6 +41,7 @@ public class Question {
 
     @Size(min = 2, max = 6)
     @OneToMany(mappedBy = "question", cascade = ALL)
+    @Builder.Default
     private List<Answer> answers = new ArrayList<>();
 
     @Embedded
@@ -36,42 +50,6 @@ public class Question {
     private InternationalizedStrings i18nRuling;
 
     private boolean enabled;
-
-    public Question() {
-        //Empty constructor for JPA
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public GameState getGameState() {
-        return gameState;
-    }
-
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
-
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public InternationalizedStrings getI18nValue() {
-        return i18nValue;
-    }
-
-    public void setI18nValue(InternationalizedStrings i18nValue) {
-        this.i18nValue = i18nValue;
-    }
 
     public @Size(min = 2, max = 6) List<Answer> getAnswers() {
         return answers;
@@ -91,21 +69,5 @@ public class Question {
         newQ.setI18nRuling(this.getI18nRuling());
         newQ.setI18nValue(this.getI18nValue());
         return newQ;
-    }
-
-    public InternationalizedStrings getI18nRuling() {
-        return i18nRuling;
-    }
-
-    public void setI18nRuling(InternationalizedStrings i18nRuling) {
-        this.i18nRuling = i18nRuling;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 }

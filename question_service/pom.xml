@@ -6,17 +6,11 @@
     <parent>
         <groupId>nl.wc.umpire_quiz</groupId>
         <artifactId>parent_pom</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>question_service</artifactId>
     <packaging>war</packaging>
-
-    <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -27,27 +21,16 @@
     </dependencies>
 
     <build>
-        <finalName>question_service</finalName>
+        <finalName>question-service</finalName>
         <plugins>
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.44.0</version>
                 <configuration>
                     <images>
                         <image>
-                            <removeNamePattern>opleiding-harbor.bcverdouw.nl/wc/umpire_quiz_questionservice:**
-                            </removeNamePattern>
-                            <name>opleiding-harbor.bcverdouw.nl/wc/umpire_quiz_questionservice</name>
-                            <build>
-                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-                                <tags>
-                                    <tag>latest</tag>
-                                    <tag>${project.version}</tag>
-                                    <tag>${majorVersion}-latest</tag>
-                                    <tag>${majorVersion}.${minorVersion}-latest</tag>
-                                </tags>
-                            </build>
+                            <removeNamePattern>bramjanssens/umpire-quiz-question-service:**</removeNamePattern>
+                            <name>bramjanssens/umpire-quiz-question-service</name>
                         </image>
                     </images>
                 </configuration>
@@ -77,6 +60,7 @@
                         <format>XML</format>
                         <format>HTML</format>
                     </outputFormats>
+                    <skip>${skipPit}</skip>
                 </configuration>
                 <executions>
                     <execution>

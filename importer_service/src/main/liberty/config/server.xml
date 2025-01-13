@@ -2,9 +2,9 @@
 <server description="new server">
     <variable name="MYSQL_HOSTNAME" defaultValue="localhost"/>
     <variable name="MYSQL_PORT" defaultValue="3306"/>
-    <variable name="MYSQL_USE_SSL" defaultValue="true"/>
     <variable name="MYSQL_ROOT_PASSWORD" defaultValue="root"/>
-    <variable name="DATABASE_NAME" defaultValue="data"/>
+    <variable name="MYSQL_DATABASE" defaultValue="questions-db"/>
+    <variable name="MYSQL_USE_SSL" defaultValue="true"/>
     <variable name="JWT_SHAREDKEY" defaultValue="mySecret"/>
 
     <featureManager>
@@ -26,16 +26,18 @@
     <httpEndpoint id="defaultHttpEndpoint" httpPort="9080" httpsPort="9443"/>
     <applicationManager autoExpand="true"/>
 
-    <webApplication contextRoot="/importer-api" location="importer_service.war"/>
-
     <library id="MySQLLib">
         <fileset dir="${shared.resource.dir}/" includes="mysql*.jar"/>
     </library>
 
     <dataSource id="DefaultDataSource" jndiName="jdbc/mySqlDatasource">
         <jdbcDriver libraryRef="MySQLLib"/>
-        <properties serverName="${MYSQL_HOSTNAME}" portNumber="${MYSQL_PORT}" useSSL="${MYSQL_USE_SSL}"
-                    databaseName="${DATABASE_NAME}" user="root" password="${MYSQL_ROOT_PASSWORD}" serverTimezone="UTC"/>
+        <properties serverName="${MYSQL_HOSTNAME}"
+                    portNumber="${MYSQL_PORT}"
+                    databaseName="${MYSQL_DATABASE}"
+                    user="root" password="${MYSQL_ROOT_PASSWORD}"
+                    useSSL="${MYSQL_USE_SSL}" allowPublicKeyRetrieval="true"
+                    serverTimezone="UTC"/>
     </dataSource>
 </server>
 
