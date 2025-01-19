@@ -1,0 +1,72 @@
+**Question 5**
+**Situation:** R2, 0 outs.
+**Explanation:** The batter hits the ball along the ground past the pitcher. R2 stays in contact with second base and is hit by the ball there.
+
+**Question 5:** Choose the correct official outcome for the above situation & explanation.
+- R2 is out, BR gets first base.
+- BR is out, R2 stays on second base.
+- Ball in play.
+
+**Question 6**
+**Situation:** R1, 2 outs.
+**Explanation:** The batter hits a line drive that hits U3, who was positioned at B, on his foot. F4, who was behind, is still able to throw the ball to first base to get the BR out.
+
+**Question 6:** Choose the correct official outcome for the above situation & explanation.
+- Ball in play. R1 ends up at second base, BR is out.
+- Obstruction: The game is dead, BR is out, R1 must return to first base.
+- Obstruction: The game is dead, R1 is out, BR gets first base.
+- Obstruction: The game is dead, R1 gets second base, BR gets first base.
+
+**Question 7**
+**Situation:** R2, the batter is obstructed by the catcher while hitting the ball.
+**Explanation:** The batter hits the catcher’s glove while R2 is stealing on the pitch. The hit ball is caught in the right field. R2 is safely back at second base.
+
+**Question 7:** Choose the correct official outcome for the above situation & explanation.
+- Catcher’s interference: R2 must return to second base, BR gets first base.
+- Catcher’s interference: R2 gets third base, BR gets first base.
+- Catcher’s interference: The pitch counts as a strike.
+
+**Question 8**
+**Situation:** R1, 1 out, count 1-1.
+**Explanation:** The pitched ball is not caught by the catcher and rolls past the catcher over home plate. The catcher uses his mask to stop the ball. When the catcher retrieves the ball, he notices R1 is far from his base and tries to throw him out (2-3). However, the throw is wild, going past the first baseman into the right field. R1 successfully reaches third base on the wild throw.
+
+**Question 8:** Choose the correct official outcome for the above situation & explanation.
+- The action continues, R1 may remain at third base.
+- The game is dead, R1 gets second base.
+- The batter may go to first base due to an illegal action by the catcher.
+
+**Question 9**
+**Situation:** R1, R2, 1 out.
+**Explanation:** The batter hits the ball on the outside but has his foot completely outside the batter’s box and hits a single. R2 scores, R1 reaches third base, and BR reaches second base.
+
+**Question 9:** Choose the correct official outcome for the above situation & explanation.
+- The batter is out, R1 and R2 return to first and second base, respectively.
+- The batter is out, R1 and R2 advance legally.
+- Single, R1 and R2 advance legally.
+
+**Question 10**
+**Situation:** R2, count 2-2.
+**Explanation:** R2 attempts to steal on the pitch. The batter swings and misses the pitched ball, but the ball hits him. No throw is made to third base.
+
+**Question 10:** Choose the correct official outcome for the above situation & explanation.
+- The game is dead, BR gets first base, R2 must return to second base.
+- The game is dead, BR gets first base, R2 is on third base.
+- The game is dead, BR is out, R2 is on third base.
+- The game is dead, BR is out, R2 must return to second base.
+
+**Question 11**
+**Situation:** No runners, 0 outs.
+**Explanation:** The batter hits a single to the left field and attempts to reach second base. The throw from the left fielder to second base is too high, and the second baseman throws his glove into the air, hitting the ball. We assume that BR reached second base before the thrown glove hit the ball.
+
+**Question 11:** Choose the correct official outcome for the above situation & explanation.
+- BR stays at second base.
+- BR gets third base.
+- BR may go to home plate.
+
+**Question 12**
+**Situation:** No runners, 2 outs.
+**Explanation:** The batter hits a ground ball to the shortstop. A 6-3 play is made, but BR is just safe. After the base, BR immediately runs to his field position in right field, thinking he is out.
+
+**Question 12:** Choose the correct official outcome for the above situation & explanation.
+- The game is dead, BR is informed of his mistake and must return to first base.
+- BR is out, inning change.
