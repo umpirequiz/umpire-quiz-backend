@@ -1,6 +1,7 @@
 package nl.wc.umpire_quiz.model;
 
 import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -17,6 +18,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -50,6 +52,9 @@ public class Question {
     private InternationalizedStrings i18nRuling;
 
     private boolean enabled;
+
+    @OneToMany(mappedBy = "question", cascade = REMOVE)
+    private List<QuestionError> errors;
 
     public @Size(min = 2, max = 6) List<Answer> getAnswers() {
         return answers;
