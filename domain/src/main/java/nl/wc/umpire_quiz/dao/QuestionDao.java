@@ -46,9 +46,9 @@ public class QuestionDao {
 
     @Transactional
     public void delete(long id) {
-        Question qDatabase = em.find(Question.class, id);
-        qDatabase.setEnabled(false);
-        save(qDatabase);
+        var q = em.find(Question.class, id);
+        q.setEnabled(false);
+        save(q);
     }
 
     @Transactional
@@ -110,5 +110,13 @@ public class QuestionDao {
                     .map(QuizGenerationQuestionDto::new)
                     .toList();
         }
+    }
+
+    @Transactional
+    public void deleteError(long errorId) {
+        var e = em.createQuery("SELECT e FROM QuestionError e WHERE e.id = :id", QuestionError.class)
+                .setParameter("id", errorId)
+                .getSingleResult();
+        em.remove(e);
     }
 }
