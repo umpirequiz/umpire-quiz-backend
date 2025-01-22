@@ -7,6 +7,8 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import nl.wc.umpire_quiz.model.Difficulty;
 import nl.wc.umpire_quiz.model.Question;
+import nl.wc.umpire_quiz.model.QuestionError;
+import nl.wc.umpire_quiz.model.QuestionErrorDto;
 import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
 
 import java.util.Collections;
@@ -26,6 +28,15 @@ public class QuestionDao {
     @Transactional
     public void save(List<Question> q) {
         q.forEach(em::merge);
+    }
+
+    @Transactional
+    public void addError(long questionId, QuestionErrorDto dto) {
+        var q = find(questionId);
+        if (q == null)
+            throw new IllegalArgumentException("questionId does not exist");
+
+        em.merge(QuestionError.of(q, dto));
     }
 
     @Transactional
@@ -85,7 +96,7 @@ public class QuestionDao {
     public List<QuizGenerationQuestionDto> getQuizQuestions(int quizSize, List<Difficulty> difficulties) {
         String query = "SELECT q FROM Question q WHERE q.enabled = TRUE AND q.difficulty IN :difficulties";
         List<Question> validQuestions = em.createQuery(
-                query, Question.class)
+                        query, Question.class)
                 .setParameter("difficulties", difficulties)
                 .getResultList();
         Collections.shuffle(validQuestions);

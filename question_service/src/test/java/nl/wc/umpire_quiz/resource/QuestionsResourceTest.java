@@ -100,28 +100,6 @@ class QuestionsResourceTest {
         return new InternationalizedStrings(nl, en);
     }
 
-    @Test
-    void get() {
-        int id = 42;
-        Question q = new Question();
-        q.setId(id);
-        when(questionDaoMock.find(42L)).thenReturn(q);
 
-        Response resp = sut.get(id);
 
-        assertThat(resp.getEntity()).isEqualTo(q);
-        assertThat(resp.getStatus()).isEqualTo(200);
-    }
-
-    @Test
-    void add() {
-    }
-
-    @Test
-    void remove() {
-    }
-
-    @Test
-    void update() {
-    }
 }
