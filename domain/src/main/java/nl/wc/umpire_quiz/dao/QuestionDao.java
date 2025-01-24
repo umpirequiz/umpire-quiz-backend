@@ -89,7 +89,6 @@ public class QuestionDao {
             }
             query.append(where);
         }
-        System.out.println("query=" + query);
         return query.toString();
     }
 
