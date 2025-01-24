@@ -1,6 +1,7 @@
 package nl.wc.umpire_quiz.model;
 
 import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -8,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,11 +21,11 @@ import java.util.List;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.CascadeType.REMOVE;
 import static jakarta.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.NONE;
 
 @Entity
 @Getter @Setter
 @Builder @AllArgsConstructor @NoArgsConstructor //@RequiredArgsConstructor
+@Cacheable(false)
 public class Question {
 
     @Id

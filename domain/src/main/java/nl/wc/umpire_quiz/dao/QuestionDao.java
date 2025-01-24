@@ -76,7 +76,7 @@ public class QuestionDao {
     String query(String term, boolean allQuestions, boolean bugs) {
         StringBuilder query = new StringBuilder("select DISTINCT(q) from Question q ");
         if (bugs) {
-            query.append("JOIN FETCH q.errors e ");
+            query.append("JOIN q.errors e ");
         }
         if (isPresent(term) || !allQuestions) {
             query.append("WHERE ");
@@ -129,8 +129,6 @@ public class QuestionDao {
         var e = em.createQuery("SELECT e FROM QuestionError e WHERE e.id = :id", QuestionError.class)
                 .setParameter("id", errorId)
                 .getSingleResult();
-        var q = e.getQuestion();
-        q.removeError(e);
-        em.merge(q);
+        em.remove(e);
     }
 }
