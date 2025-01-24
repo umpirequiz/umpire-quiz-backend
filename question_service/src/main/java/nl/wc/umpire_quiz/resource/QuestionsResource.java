@@ -4,7 +4,6 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -31,9 +30,11 @@ public class QuestionsResource {
     }
 
     @GET
-    public Response getAll(@QueryParam("q") String term, @QueryParam("all") boolean all) {
+    public Response getAll(@QueryParam("q") String term,
+                           @QueryParam("all") boolean all,
+                           @QueryParam("bugs") boolean bugs) {
         return Response.status(OK)
-                .entity(dao.findBy(term, all))
+                .entity(dao.findBy(term, all, bugs))
                 .build();
     }
 
@@ -48,5 +49,4 @@ public class QuestionsResource {
     public QuestionResource remove(@PathParam("id") long id) {
         return this.questionResource.withId(id);
     }
-
 }

@@ -1,5 +1,7 @@
 package nl.wc.umpire_quiz.model;
 
+import jakarta.json.bind.annotation.JsonbTransient;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -12,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static jakarta.persistence.CascadeType.MERGE;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -24,8 +27,9 @@ public class QuestionError {
     private Long id;
 
     @Id
-    @ManyToOne
     @JoinColumn(name = "questionId", referencedColumnName = "id")
+    @ManyToOne(cascade = MERGE)
+    @JsonbTransient
     private Question question;
 
     private String message;

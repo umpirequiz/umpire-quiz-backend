@@ -33,7 +33,7 @@ class QuestionsResourceTest {
         List<Question> questions = List.of(q);
         when(questionDaoMock.findBy(term, false)).thenReturn(questions);
 
-        Response resp = sut.getAll(term, false);
+        Response resp = sut.getAll(term, false, false);
 
         assertThat(resp.getEntity()).isEqualTo(questions);
         assertThat(resp.getStatus()).isEqualTo(200);
@@ -67,15 +67,15 @@ class QuestionsResourceTest {
         when(questionDaoMock.findBy(blank, all)).thenReturn(allQuestions);
         when(questionDaoMock.findBy(aTerm, all)).thenReturn(allQuestions);
 
-        Response respNull = sut.getAll(null, enabledOnly);
-        Response respEmpty = sut.getAll(empty, enabledOnly);
-        Response respBlank = sut.getAll(blank, enabledOnly);
-        Response respTerm = sut.getAll(aTerm, enabledOnly);
+        Response respNull = sut.getAll(null, enabledOnly, false);
+        Response respEmpty = sut.getAll(empty, enabledOnly, false);
+        Response respBlank = sut.getAll(blank, enabledOnly, false);
+        Response respTerm = sut.getAll(aTerm, enabledOnly, false);
 
-        Response respAll1 = sut.getAll(null, all);
-        Response respAll4 = sut.getAll(empty, all);
-        Response respAll3 = sut.getAll(blank, all);
-        Response respAll2 = sut.getAll(aTerm, all);
+        Response respAll1 = sut.getAll(null, all, false);
+        Response respAll4 = sut.getAll(empty, all, false);
+        Response respAll3 = sut.getAll(blank, all, false);
+        Response respAll2 = sut.getAll(aTerm, all, false);
 
         assertThat(respNull.getEntity()).isEqualTo(enabledQuestions);
         assertThat(respNull.getStatus()).isEqualTo(200);
@@ -99,7 +99,4 @@ class QuestionsResourceTest {
     private static @NotNull InternationalizedStrings i18n(String nl, String en) {
         return new InternationalizedStrings(nl, en);
     }
-
-
-
 }

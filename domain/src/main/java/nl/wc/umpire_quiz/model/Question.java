@@ -1,7 +1,6 @@
 package nl.wc.umpire_quiz.model;
 
 import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -9,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,9 +18,10 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.REMOVE;
 import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.NONE;
 
 @Entity
 @Getter @Setter
@@ -53,7 +54,7 @@ public class Question {
 
     private boolean enabled;
 
-    @OneToMany(mappedBy = "question", cascade = REMOVE)
+    @OneToMany(mappedBy = "question", cascade = REMOVE, orphanRemoval = true)
     private List<QuestionError> errors;
 
     public @Size(min = 2, max = 6) List<Answer> getAnswers() {
@@ -74,5 +75,9 @@ public class Question {
         newQ.setI18nRuling(this.getI18nRuling());
         newQ.setI18nValue(this.getI18nValue());
         return newQ;
+    }
+
+    public void removeError(QuestionError e) {
+        this.errors.remove(e);
     }
 }

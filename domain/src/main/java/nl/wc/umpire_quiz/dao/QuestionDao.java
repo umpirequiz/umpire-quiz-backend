@@ -58,7 +58,11 @@ public class QuestionDao {
     }
 
     public List<Question> findBy(String term, boolean allQuestions) {
-        TypedQuery<Question> query = this.em.createQuery(query(term, allQuestions), Question.class);
+        return findBy(term, allQuestions, false);
+    }
+
+    public List<Question> findBy(String term, boolean allQuestions, boolean bugs) {
+        TypedQuery<Question> query = this.em.createQuery(query(term, allQuestions, bugs), Question.class);
         if (isPresent(term)) {
             query.setParameter("term", "%" + term + "%");
         }
@@ -66,9 +70,16 @@ public class QuestionDao {
     }
 
     String query(String term, boolean allQuestions) {
-        StringBuilder query = new StringBuilder("select q from Question q");
+        return query(term, allQuestions, false);
+    }
+
+    String query(String term, boolean allQuestions, boolean bugs) {
+        StringBuilder query = new StringBuilder("select DISTINCT(q) from Question q ");
+        if (bugs) {
+            query.append("JOIN FETCH q.errors e ");
+        }
         if (isPresent(term) || !allQuestions) {
-            query.append(" where ");
+            query.append("WHERE ");
             StringJoiner where = new StringJoiner(" and ");
             if (isPresent(term)) {
                 where.add("(q.i18nValue.enUS like :term or q.i18nValue.nlNL like :term)");
@@ -78,6 +89,7 @@ public class QuestionDao {
             }
             query.append(where);
         }
+        System.out.println("query=" + query);
         return query.toString();
     }
 
@@ -117,6 +129,8 @@ public class QuestionDao {
         var e = em.createQuery("SELECT e FROM QuestionError e WHERE e.id = :id", QuestionError.class)
                 .setParameter("id", errorId)
                 .getSingleResult();
-        em.remove(e);
+        var q = e.getQuestion();
+        q.removeError(e);
+        em.merge(q);
     }
 }
