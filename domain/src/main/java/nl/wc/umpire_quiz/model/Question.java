@@ -1,6 +1,7 @@
 package nl.wc.umpire_quiz.model;
 
 import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -18,11 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.REMOVE;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter @Setter
 @Builder @AllArgsConstructor @NoArgsConstructor //@RequiredArgsConstructor
+@Cacheable(false)
 public class Question {
 
     @Id
@@ -51,6 +54,9 @@ public class Question {
 
     private boolean enabled;
 
+    @OneToMany(mappedBy = "question", cascade = REMOVE, orphanRemoval = true)
+    private List<QuestionError> errors;
+
     public @Size(min = 2, max = 6) List<Answer> getAnswers() {
         return answers;
     }
@@ -69,5 +75,9 @@ public class Question {
         newQ.setI18nRuling(this.getI18nRuling());
         newQ.setI18nValue(this.getI18nValue());
         return newQ;
+    }
+
+    public void removeError(QuestionError e) {
+        this.errors.remove(e);
     }
 }

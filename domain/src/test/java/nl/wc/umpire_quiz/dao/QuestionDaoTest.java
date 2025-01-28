@@ -146,23 +146,23 @@ class QuestionDaoTest {
     @Test
     void query() {
         String query = sut.query(null, false);
-        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q where q.enabled = true");
+        assertThat(query.trim()).isEqualToIgnoringCase("select DISTINCT(q) from Question q where q.enabled = true");
 
         query = sut.query(null, true);
-        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q");
+        assertThat(query.trim()).isEqualToIgnoringCase("select DISTINCT(q) from Question q");
 
         String term = ":term";
         query = sut.query(term, false);
-        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q where (q.i18nValue.enUS like " + term + " or q.i18nValue.nlNL like " + term + ") and q.enabled = true");
+        assertThat(query.trim()).isEqualToIgnoringCase("select DISTINCT(q) from Question q where (q.i18nValue.enUS like " + term + " or q.i18nValue.nlNL like " + term + ") and q.enabled = true");
 
         query = sut.query(term, true);
-        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q where (q.i18nValue.enUS like " + term + " or q.i18nValue.nlNL like " + term + ")");
+        assertThat(query.trim()).isEqualToIgnoringCase("select DISTINCT(q) from Question q where (q.i18nValue.enUS like " + term + " or q.i18nValue.nlNL like " + term + ")");
 
         query = sut.query("    ", false);
-        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q where q.enabled = true");
+        assertThat(query.trim()).isEqualToIgnoringCase("select DISTINCT(q) from Question q where q.enabled = true");
 
         query = sut.query("    ", true);
-        assertThat(query.trim()).isEqualToIgnoringCase("select q from Question q");
+        assertThat(query.trim()).isEqualToIgnoringCase("select DISTINCT(q) from Question q");
     }
 
     private List<Question> createQuestionList() {

@@ -7,6 +7,8 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import nl.wc.umpire_quiz.model.Difficulty;
 import nl.wc.umpire_quiz.model.Question;
+import nl.wc.umpire_quiz.model.QuestionError;
+import nl.wc.umpire_quiz.model.QuestionErrorDto;
 import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
 
 import java.util.Collections;
@@ -29,15 +31,24 @@ public class QuestionDao {
     }
 
     @Transactional
+    public void addError(long questionId, QuestionErrorDto dto) {
+        var q = find(questionId);
+        if (q == null)
+            throw new IllegalArgumentException("questionId does not exist");
+
+        em.merge(QuestionError.of(q, dto));
+    }
+
+    @Transactional
     public void delete(Question q) {
         delete(q.getId());
     }
 
     @Transactional
     public void delete(long id) {
-        Question qDatabase = em.find(Question.class, id);
-        qDatabase.setEnabled(false);
-        save(qDatabase);
+        var q = em.find(Question.class, id);
+        q.setEnabled(false);
+        save(q);
     }
 
     @Transactional
@@ -47,7 +58,11 @@ public class QuestionDao {
     }
 
     public List<Question> findBy(String term, boolean allQuestions) {
-        TypedQuery<Question> query = this.em.createQuery(query(term, allQuestions), Question.class);
+        return findBy(term, allQuestions, false);
+    }
+
+    public List<Question> findBy(String term, boolean allQuestions, boolean bugs) {
+        TypedQuery<Question> query = this.em.createQuery(query(term, allQuestions, bugs), Question.class);
         if (isPresent(term)) {
             query.setParameter("term", "%" + term + "%");
         }
@@ -55,9 +70,16 @@ public class QuestionDao {
     }
 
     String query(String term, boolean allQuestions) {
-        StringBuilder query = new StringBuilder("select q from Question q");
+        return query(term, allQuestions, false);
+    }
+
+    String query(String term, boolean allQuestions, boolean bugs) {
+        StringBuilder query = new StringBuilder("select DISTINCT(q) from Question q ");
+        if (bugs) {
+            query.append("JOIN q.errors e ");
+        }
         if (isPresent(term) || !allQuestions) {
-            query.append(" where ");
+            query.append("WHERE ");
             StringJoiner where = new StringJoiner(" and ");
             if (isPresent(term)) {
                 where.add("(q.i18nValue.enUS like :term or q.i18nValue.nlNL like :term)");
@@ -85,7 +107,7 @@ public class QuestionDao {
     public List<QuizGenerationQuestionDto> getQuizQuestions(int quizSize, List<Difficulty> difficulties) {
         String query = "SELECT q FROM Question q WHERE q.enabled = TRUE AND q.difficulty IN :difficulties";
         List<Question> validQuestions = em.createQuery(
-                query, Question.class)
+                        query, Question.class)
                 .setParameter("difficulties", difficulties)
                 .getResultList();
         Collections.shuffle(validQuestions);
@@ -99,5 +121,13 @@ public class QuestionDao {
                     .map(QuizGenerationQuestionDto::new)
                     .toList();
         }
+    }
+
+    @Transactional
+    public void deleteError(long errorId) {
+        var e = em.createQuery("SELECT e FROM QuestionError e WHERE e.id = :id", QuestionError.class)
+                .setParameter("id", errorId)
+                .getSingleResult();
+        em.remove(e);
     }
 }

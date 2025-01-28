@@ -5,7 +5,7 @@ services:
       - mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: data
+      MYSQL_DATABASE: questions-db
     ports:
       - "3306:3306"
 

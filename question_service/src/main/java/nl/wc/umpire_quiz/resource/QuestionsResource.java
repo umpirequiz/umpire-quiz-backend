@@ -2,10 +2,8 @@ package nl.wc.umpire_quiz.resource;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -16,7 +14,6 @@ import nl.wc.umpire_quiz.model.Question;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.Response.Status.CREATED;
-import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
 import static jakarta.ws.rs.core.Response.Status.OK;
 
 @Path("/questions")
@@ -24,23 +21,20 @@ import static jakarta.ws.rs.core.Response.Status.OK;
 @Produces(APPLICATION_JSON)
 public class QuestionsResource {
     private final QuestionDao dao;
+    private final QuestionResource questionResource;
 
     @Inject
-    public QuestionsResource(QuestionDao dao) {
+    public QuestionsResource(QuestionDao dao, QuestionResource questionResource) {
         this.dao = dao;
+        this.questionResource = questionResource;
     }
 
     @GET
-    public Response getAll(@QueryParam("q") String term, @QueryParam("all") boolean all) {
+    public Response getAll(@QueryParam("q") String term,
+                           @QueryParam("all") boolean all,
+                           @QueryParam("bugs") boolean bugs) {
         return Response.status(OK)
-                .entity(dao.findBy(term, all))
-                .build();
-    }
-
-    @GET @Path("{id}")
-    public Response get(@PathParam("id") long id) {
-        return Response.status(OK)
-                .entity(dao.find(id))
+                .entity(dao.findBy(term, all, bugs))
                 .build();
     }
 
@@ -51,17 +45,8 @@ public class QuestionsResource {
                 .build();
     }
 
-    @DELETE @Path("{id}")
-    public Response remove(@PathParam("id") long id) {
-        dao.delete(id);
-        return Response.status(NO_CONTENT)
-                .build();
-    }
-
-    @PUT @Path("{id}")
-    public Response update(@PathParam("id") long id, Question q) {
-        return Response.status(OK)
-                .entity(dao.update(id, q))
-                .build();
+    @Path("{id}")
+    public QuestionResource remove(@PathParam("id") long id) {
+        return this.questionResource.withId(id);
     }
 }
