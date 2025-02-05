@@ -1,12 +1,3 @@
-**Question 5**
-**Situation:** R2, 0 outs.
-**Explanation:** The batter hits the ball along the ground past the pitcher. R2 stays in contact with second base and is hit by the ball there.
-
-**Question 5:** Choose the correct official outcome for the above situation & explanation.
-- R2 is out, BR gets first base.
-- BR is out, R2 stays on second base.
-- Ball in play.
-
 **Question 6**
 **Situation:** R1, 2 outs.
 **Explanation:** The batter hits a line drive that hits U3, who was positioned at B, on his foot. F4, who was behind, is still able to throw the ball to first base to get the BR out.
