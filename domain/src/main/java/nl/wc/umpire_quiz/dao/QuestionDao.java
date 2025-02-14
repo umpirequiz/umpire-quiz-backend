@@ -11,9 +11,10 @@ import nl.wc.umpire_quiz.model.QuestionError;
 import nl.wc.umpire_quiz.model.QuestionErrorDto;
 import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
+
+import static java.util.Collections.shuffle;
 
 @Dependent
 public class QuestionDao {
@@ -110,17 +111,12 @@ public class QuestionDao {
                         query, Question.class)
                 .setParameter("difficulties", difficulties)
                 .getResultList();
-        Collections.shuffle(validQuestions);
-        try {
-            return validQuestions.subList(0, quizSize)
-                    .stream()
-                    .map(QuizGenerationQuestionDto::new)
-                    .toList();
-        } catch (IndexOutOfBoundsException e) {
-            return validQuestions.stream()
-                    .map(QuizGenerationQuestionDto::new)
-                    .toList();
-        }
+        shuffle(validQuestions);
+        return validQuestions
+                .stream()
+                .limit(quizSize)
+                .map(QuizGenerationQuestionDto::new)
+                .toList();
     }
 
     @Transactional

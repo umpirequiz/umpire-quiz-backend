@@ -8,12 +8,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
-import nl.wc.umpire_quiz.model.Difficulty;
 import nl.wc.umpire_quiz.model.QuizGeneration;
 import nl.wc.umpire_quiz.service.QuizService;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.Response.Status.CREATED;
