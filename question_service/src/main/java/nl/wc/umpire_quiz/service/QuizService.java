@@ -22,8 +22,7 @@ public class QuizService {
     public QuizGeneration generateQuiz(int quizSize, List<Difficulty> difficulties) {
         QuizGeneration quizGeneration = new QuizGeneration(quizSizeOrDefault(quizSize), difficulties);
         quizGeneration.setQuestions(questionDao.getQuizQuestions(quizGeneration.getQuizSize(), quizGeneration.getDifficulties()));
-        quizGeneration.setQuizSize(quizGeneration.getQuestions()
-                                                 .size());
+        quizGeneration.setQuizSize(quizGeneration.getQuestions().size());
         return quizGeneration;
     }
 
@@ -34,9 +33,9 @@ public class QuizService {
     public QuizValidation validateQuiz(QuizGeneration quizGeneration) {
         QuizValidation qV = new QuizValidation(quizGeneration);
         qV.setQuestions(quizGeneration.getQuestions()
-                                      .stream()
-                                      .map(q -> questionDao.find(q.getId()))
-                                      .toList());
+                .stream()
+                .map(q -> questionDao.find(q.getId()))
+                .toList());
         return qV;
     }
 }

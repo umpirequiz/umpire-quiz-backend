@@ -1,7 +1,5 @@
 package nl.wc.umpire_quiz.model;
 
-import lombok.NonNull;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,10 +9,14 @@ public enum Difficulty {
     UMPIRE_3,
     UMPIRE_4;
 
-    public static List<Difficulty> toDifficulties(@NonNull String levels) {
-        return Arrays.stream(levels.split(""))
+    public static List<Difficulty> toDifficulties(String levels) {
+        return Arrays.stream(levelsOrDefault(levels).split(""))
                 .map(Difficulty::from)
                 .toList();
+    }
+
+    private static String levelsOrDefault(String levels) {
+        return levels != null && !levels.isBlank() ? levels : "1234";
     }
 
     private static Difficulty from(String s) {
@@ -26,4 +28,4 @@ public enum Difficulty {
             default -> throw new IllegalArgumentException("Invalid difficulty");
         };
     }
-    }
+}
