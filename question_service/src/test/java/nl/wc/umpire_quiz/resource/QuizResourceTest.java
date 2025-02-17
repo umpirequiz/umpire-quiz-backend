@@ -10,12 +10,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-
-import static nl.wc.umpire_quiz.model.Difficulty.UMPIRE_1;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class QuizResourceTest {
@@ -30,7 +31,7 @@ class QuizResourceTest {
 
         when(quizServiceMock.generateQuiz(anyInt(), anyList())).thenReturn(q);
 
-        Response resp = sut.generateQuiz(10, List.of(UMPIRE_1));
+        Response resp = sut.generateQuiz(10, "1");
 
         assertThat(resp.getEntity()).isEqualTo(q);
         assertThat(resp.getStatus()).isEqualTo(200);
