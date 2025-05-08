@@ -66,4 +66,26 @@ class QuestionTest {
 
         assertThat(q2.getGameState()).isEqualTo(gameState);
     }
+
+    @Test
+    void testCopy() {
+        InternationalizedStrings ruling1 = new InternationalizedStrings("Regul", "Ruling");
+        InternationalizedStrings ruling2 = new InternationalizedStrings("Regel", "Ruling");
+        InternationalizedStrings value = new InternationalizedStrings("Vraag", "Question");
+
+        Question q = new Question();
+        q.setI18nValue(value);
+        q.setId(42);
+        q.setAnswers(List.of(new Answer(), new Answer()));
+        q.setDifficulty(UMPIRE_1);
+        q.setEnabled(false);
+        q.setI18nRuling(ruling1);
+        q.setGameState(new GameState());
+
+        Question copy = q.copy();
+
+        assertThat(copy.isEnabled()).isTrue();
+        assertThat(copy.getId()).isZero();
+
+    }
 }
