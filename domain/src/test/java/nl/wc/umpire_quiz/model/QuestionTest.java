@@ -18,6 +18,7 @@ class QuestionTest {
         Answer a1 = new Answer();
         Answer a2 = new Answer();
         List<Answer> answers = List.of(a1, a2);
+        String link = "link";
         Question q = new Question();
 
         q.setI18nValue(value);
@@ -37,6 +38,9 @@ class QuestionTest {
         q.setEnabled(false);
         assertThat(q.isEnabled()).isFalse();
 
+        q.setLink(link);
+        assertThat(q.getLink()).isEqualTo(link);
+
         q.setI18nRuling(ruling1);
         assertThat(q.getI18nRuling()).isEqualTo(ruling1);
         assertThat(q.getI18nRuling()).isNotEqualTo(ruling2);
@@ -46,6 +50,7 @@ class QuestionTest {
 
         Question q2 = q.copy();
         assertThat(q2.isEnabled()).isTrue();
+        assertThat(q2.getLink()).isEqualTo(link);
         assertThat(q2.getI18nRuling()).isEqualTo(ruling1);
         assertThat(q2.getI18nRuling()).isNotEqualTo(ruling2);
         q2.setI18nRuling(ruling2);
@@ -86,6 +91,5 @@ class QuestionTest {
 
         assertThat(copy.isEnabled()).isTrue();
         assertThat(copy.getId()).isZero();
-
     }
 }

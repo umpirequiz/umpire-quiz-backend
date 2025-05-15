@@ -9,13 +9,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.With;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter @Setter
 @Builder @AllArgsConstructor @NoArgsConstructor //@RequiredArgsConstructor
 @Cacheable(false)
-@With
 public class Question {
 
     @Id
@@ -72,7 +69,15 @@ public class Question {
     }
 
     public Question copy() {
-        return this.withEnabled(true).withId(0);
+        Question newQ = new Question();
+        newQ.setEnabled(true);
+        newQ.setAnswers(this.getAnswers());
+        newQ.setLink(this.getLink());
+        newQ.setDifficulty(this.getDifficulty());
+        newQ.setGameState(this.getGameState());
+        newQ.setI18nRuling(this.getI18nRuling());
+        newQ.setI18nValue(this.getI18nValue());
+        return newQ;
     }
 
     public void removeError(QuestionError e) {
