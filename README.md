@@ -1,3 +1,7 @@
+## Changelog
+- 0.8.0 added question counter
+- 0.7.0 no historical data...
+
 ## Running in dev mode
 * Start a database container with `docker-compose-mysql.yml`
 * Run `mvn install` on module domain.
