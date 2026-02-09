@@ -6,10 +6,10 @@ import static nl.wc.umpire_quiz.model.Difficulty.*;
 
 public class QuizGeneration {
     private List<Difficulty> difficulties = List.of(
-            UMPIRE_1,
-            UMPIRE_2,
-            UMPIRE_3,
-            UMPIRE_4);
+            U1,
+            U2,
+            U3,
+            U4);
     private List<QuizGenerationQuestionDto> questions;
     private int quizSize;
 
@@ -29,10 +29,10 @@ public class QuizGeneration {
     public void setDifficulties(List<Difficulty> difficulties) {
         if (difficulties.isEmpty()) {
             this.difficulties = List.of(
-                    UMPIRE_1,
-                    UMPIRE_2,
-                    UMPIRE_3,
-                    UMPIRE_4);
+                    U1,
+                    U2,
+                    U3,
+                    U4);
         } else {
             this.difficulties = difficulties;
         }

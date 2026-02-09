@@ -4,15 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum Difficulty {
-    UMPIRE_1,
-    UMPIRE_2,
-    UMPIRE_3,
-    UMPIRE_4;
+    U1, U2, U3, U4;
 
     public static List<Difficulty> toDifficulties(String levels) {
-        return Arrays.stream(levelsOrDefault(levels).split(""))
-                .map(Difficulty::from)
-                .toList();
+        return Arrays.stream(levelsOrDefault(levels).split("")).map(Difficulty::from).toList();
     }
 
     private static String levelsOrDefault(String levels) {
@@ -21,10 +16,10 @@ public enum Difficulty {
 
     private static Difficulty from(String s) {
         return switch (s) {
-            case "1" -> UMPIRE_1;
-            case "2" -> UMPIRE_2;
-            case "3" -> UMPIRE_3;
-            case "4" -> UMPIRE_4;
+            case "1" -> U1;
+            case "2" -> U2;
+            case "3" -> U3;
+            case "4" -> U4;
             default -> throw new IllegalArgumentException("Invalid difficulty");
         };
     }

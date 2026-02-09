@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static nl.wc.umpire_quiz.model.Difficulty.UMPIRE_1;
+import static nl.wc.umpire_quiz.model.Difficulty.U1;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class QuestionTest {
@@ -32,8 +32,8 @@ class QuestionTest {
         assertThat(a1.getQuestion()).isEqualTo(q);
         assertThat(a2.getQuestion()).isEqualTo(q);
 
-        q.setDifficulty(UMPIRE_1);
-        assertThat(q.getDifficulty()).isEqualTo(UMPIRE_1);
+        q.setDifficulty(U1);
+        assertThat(q.getDifficulty()).isEqualTo(U1);
 
         q.setEnabled(false);
         assertThat(q.isEnabled()).isFalse();
@@ -67,7 +67,7 @@ class QuestionTest {
         assertThat(a1.getQuestion()).isEqualTo(q2);
         assertThat(a2.getQuestion()).isEqualTo(q2);
 
-        assertThat(q2.getDifficulty()).isEqualTo(UMPIRE_1);
+        assertThat(q2.getDifficulty()).isEqualTo(U1);
 
         assertThat(q2.getGameState()).isEqualTo(gameState);
     }
@@ -82,7 +82,7 @@ class QuestionTest {
         q.setI18nValue(value);
         q.setId(42);
         q.setAnswers(List.of(new Answer(), new Answer()));
-        q.setDifficulty(UMPIRE_1);
+        q.setDifficulty(U1);
         q.setEnabled(false);
         q.setI18nRuling(ruling1);
         q.setGameState(new GameState());

@@ -16,7 +16,7 @@ class QuizValidationTest {
         QuizValidation qV = new QuizValidation(qG);
 
         assertThat(qV.getQuizSize()).isEqualTo(42);
-        assertThat(qV.getDifficulties()).containsExactlyInAnyOrder(UMPIRE_1, UMPIRE_3, UMPIRE_2, UMPIRE_4);
+        assertThat(qV.getDifficulties()).containsExactlyInAnyOrder(U1, U3, U2, U4);
     }
 
     @Test
@@ -24,11 +24,11 @@ class QuizValidationTest {
         Question q = new Question();
         QuizValidation qV = new QuizValidation();
         qV.setQuizSize(42);
-        qV.setDifficulties(List.of(UMPIRE_1));
+        qV.setDifficulties(List.of(U1));
         qV.setQuestions(List.of(q));
 
         assertThat(qV.getQuizSize()).isEqualTo(42);
-        assertThat(qV.getDifficulties()).containsExactly(UMPIRE_1);
+        assertThat(qV.getDifficulties()).containsExactly(U1);
         assertThat(qV.getQuestions()).containsExactly(q);
     }
 }

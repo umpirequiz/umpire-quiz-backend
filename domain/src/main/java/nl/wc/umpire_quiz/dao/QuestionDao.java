@@ -7,6 +7,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import nl.wc.umpire_quiz.model.Difficulty;
 import nl.wc.umpire_quiz.model.Question;
+import nl.wc.umpire_quiz.model.QuestionCountDto;
 import nl.wc.umpire_quiz.model.QuestionError;
 import nl.wc.umpire_quiz.model.QuestionErrorDto;
 import nl.wc.umpire_quiz.model.QuizGenerationQuestionDto;
@@ -125,5 +126,13 @@ public class QuestionDao {
                 .setParameter("id", errorId)
                 .getSingleResult();
         em.remove(e);
+    }
+
+    public List<QuestionCountDto> count() {
+        return em.createQuery("""
+                SELECT new nl.wc.umpire_quiz.model.QuestionCountDto(q.difficulty, count(q))
+                FROM Question q
+                group by q.difficulty
+                order by q.difficulty""", QuestionCountDto.class).getResultList();
     }
 }

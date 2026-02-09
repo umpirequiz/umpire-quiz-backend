@@ -20,10 +20,10 @@ class QuizGenerationTest {
     void QuizHappyFlow() {
         QuizGenerationQuestionDto q = new QuizGenerationQuestionDto();
 
-        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(UMPIRE_2, UMPIRE_3, UMPIRE_4, UMPIRE_1));
+        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(U2, U3, U4, U1));
 
-        sut.setDifficulties(List.of(UMPIRE_1));
-        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(UMPIRE_1));
+        sut.setDifficulties(List.of(U1));
+        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(U1));
 
         sut.setQuizSize(55);
         assertThat(sut.getQuizSize()).isEqualTo(55);
@@ -34,18 +34,18 @@ class QuizGenerationTest {
 
     @Test
     void intAndListConstructor() {
-        sut = new QuizGeneration(15, List.of(UMPIRE_2));
+        sut = new QuizGeneration(15, List.of(U2));
 
         assertThat(sut.getQuizSize()).isEqualTo(15);
-        assertThat(sut.getDifficulties()).containsExactly(UMPIRE_2);
+        assertThat(sut.getDifficulties()).containsExactly(U2);
     }
 
     @Test
     void setDifficulties() {
         sut.setDifficulties(List.of());
-        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(UMPIRE_2, UMPIRE_3, UMPIRE_4, UMPIRE_1));
+        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(U2, U3, U4, U1));
 
-        sut.setDifficulties(List.of(UMPIRE_1));
-        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(UMPIRE_1));
+        sut.setDifficulties(List.of(U1));
+        assertThat(sut.getDifficulties()).containsExactlyInAnyOrderElementsOf(List.of(U1));
     }
 }
