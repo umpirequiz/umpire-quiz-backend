@@ -2,7 +2,7 @@ To import initial questions, start the importer service and use swagger ui (e.g.
 
 To create an admin user, start the user service (other repo) and use swagger ui to post a user to the system.
 
-To build and push a docker image for a module, use:
+To build and push a docker image for a module, first `mvn install` domain and then, in a module dir, use:
 ```console
 mvn clean package
 mvn docker:build
