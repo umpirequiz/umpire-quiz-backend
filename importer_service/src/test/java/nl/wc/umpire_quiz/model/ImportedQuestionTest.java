@@ -6,7 +6,10 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static nl.wc.umpire_quiz.model.Difficulty.*;
+import static nl.wc.umpire_quiz.model.Difficulty.U1;
+import static nl.wc.umpire_quiz.model.Difficulty.U2;
+import static nl.wc.umpire_quiz.model.Difficulty.U3;
+import static nl.wc.umpire_quiz.model.Difficulty.U4;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ImportedQuestionTest {
@@ -95,16 +98,16 @@ class ImportedQuestionTest {
 
     @Test
     void transformDifficulty() {
-        assertThat(sut.transformDifficulty()).isEqualTo(UMPIRE_2);
+        assertThat(sut.transformDifficulty()).isEqualTo(U2);
 
         sut.setnDiff(4);
-        assertThat(sut.transformDifficulty()).isEqualTo(UMPIRE_4);
+        assertThat(sut.transformDifficulty()).isEqualTo(U4);
 
         sut.setnDiff(3);
-        assertThat(sut.transformDifficulty()).isEqualTo(UMPIRE_3);
+        assertThat(sut.transformDifficulty()).isEqualTo(U3);
 
         sut.setnDiff(1);
-        assertThat(sut.transformDifficulty()).isEqualTo(UMPIRE_1);
+        assertThat(sut.transformDifficulty()).isEqualTo(U1);
     }
 
     @Test
@@ -114,9 +117,9 @@ class ImportedQuestionTest {
         assertThat(answers).hasSize(2);
 
         Answer correct = answers.stream()
-                                .filter(Answer::isCorrect)
-                                .findFirst()
-                                .orElse(null);
+                .filter(Answer::isCorrect)
+                .findFirst()
+                .orElse(null);
 
         assertThat(correct).isNotNull();
         assertThat(correct.getI18nValue()).isEqualTo(new InternationalizedStrings("Nee", "Nee"));
@@ -129,7 +132,7 @@ class ImportedQuestionTest {
         assertThat(q).isNotNull();
         assertThat(q.isEnabled()).isTrue();
         assertThat(q.getAnswers()).isNotNull()
-                                  .isNotEmpty();
+                .isNotEmpty();
         assertThat(q.getGameState()).isNotNull();
         assertThat(q.getDifficulty()).isNotNull();
         assertThat(q.getI18nValue()).isNotNull();
