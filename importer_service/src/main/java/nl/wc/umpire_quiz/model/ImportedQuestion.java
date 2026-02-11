@@ -5,7 +5,10 @@ import jakarta.json.bind.annotation.JsonbProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-import static nl.wc.umpire_quiz.model.Difficulty.*;
+import static nl.wc.umpire_quiz.model.Difficulty.U1;
+import static nl.wc.umpire_quiz.model.Difficulty.U2;
+import static nl.wc.umpire_quiz.model.Difficulty.U3;
+import static nl.wc.umpire_quiz.model.Difficulty.U4;
 
 public class ImportedQuestion {
     @JsonbProperty("R1")
@@ -175,7 +178,6 @@ public class ImportedQuestion {
 
     InternationalizedStrings transformRuling() {
         return new InternationalizedStrings(this.sRuling, this.sRuling);
-
     }
 
     InternationalizedStrings transformValue() {
@@ -184,10 +186,10 @@ public class ImportedQuestion {
 
     Difficulty transformDifficulty() {
         return switch (this.nDiff) {
-            case 4 -> UMPIRE_4;
-            case 3 -> UMPIRE_3;
-            case 2 -> UMPIRE_2;
-            default -> UMPIRE_1;
+            case 4 -> U4;
+            case 3 -> U3;
+            case 2 -> U2;
+            default -> U1;
         };
     }
 
@@ -211,7 +213,7 @@ public class ImportedQuestion {
             }
         });
         answers.get(this.nCorrectAnswer - 1)
-               .setCorrect(true);
+                .setCorrect(true);
         return answers;
     }
 

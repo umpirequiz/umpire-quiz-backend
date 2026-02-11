@@ -86,7 +86,7 @@ class QuizServiceTest {
 
         QuizValidation qV = sut.validateQuiz(quizGeneration);
 
-        assertThat(qV.getDifficulties()).containsExactlyInAnyOrder(UMPIRE_1, UMPIRE_2, UMPIRE_3, UMPIRE_4);
+        assertThat(qV.getDifficulties()).containsExactlyInAnyOrder(U1, U2, U3, U4);
         assertThat(qV.getQuizSize()).isEqualTo(10);
         assertThat(qV.getQuestions()).containsExactlyInAnyOrder(q0, q1, q2, q3, q4, q5, q6, q7, q8, q9);
 

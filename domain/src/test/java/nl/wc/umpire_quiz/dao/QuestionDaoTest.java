@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static nl.wc.umpire_quiz.model.Difficulty.UMPIRE_1;
-import static nl.wc.umpire_quiz.model.Difficulty.UMPIRE_2;
+import static nl.wc.umpire_quiz.model.Difficulty.U1;
+import static nl.wc.umpire_quiz.model.Difficulty.U2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.anyString;
@@ -124,7 +124,7 @@ class QuestionDaoTest {
     @ParameterizedTest
     @CsvSource({"5,5", "10,10", "20,20", "30,30", "40,40", "50,50", "60,55"})
     void getQuizQuestions(int quizSize, int expected) {
-        List<Difficulty> difficulties = List.of(UMPIRE_1, UMPIRE_2);
+        List<Difficulty> difficulties = List.of(U1, U2);
         List<Question> questions = createQuestionList();
         List<Question> questions1 = new ArrayList<>(questions);
 

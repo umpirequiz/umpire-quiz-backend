@@ -11,6 +11,9 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 import nl.wc.umpire_quiz.dao.QuestionDao;
 import nl.wc.umpire_quiz.model.Question;
+import nl.wc.umpire_quiz.model.QuestionCountDto;
+
+import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.Response.Status.CREATED;
@@ -43,6 +46,11 @@ public class QuestionsResource {
         return Response.status(CREATED)
                 .entity(dao.save(q))
                 .build();
+    }
+
+    @GET @Path("count")
+    public List<QuestionCountDto> count() {
+        return dao.count();
     }
 
     @Path("{id}")
