@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server description="new server">
-    <variable name="HTTP_PORT" defaultValue="9081"/>
-    <variable name="HTTPS_PORT" defaultValue="9444"/>
     <variable name="MYSQL_HOSTNAME" defaultValue="localhost"/>
     <variable name="MYSQL_PORT" defaultValue="3306"/>
     <variable name="MYSQL_ROOT_PASSWORD" defaultValue="root"/>
@@ -25,7 +23,7 @@
 
     <mpJwt id="test" sharedKey="${JWT_SHAREDKEY}"/>
 
-    <httpEndpoint id="defaultHttpEndpoint" httpPort="${HTTP_PORT}" httpsPort="${HTTPS_PORT}"/>
+    <httpEndpoint id="defaultHttpEndpoint" httpPort="9080" httpsPort="9443"/>
     <applicationManager autoExpand="true"/>
 
     <library id="MySQLLib">
