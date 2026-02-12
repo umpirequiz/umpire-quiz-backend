@@ -11,10 +11,6 @@
 * Run `mvn liberty:dev` on module question_service. 
   * Note: Rancher Desktop runs on 9080 & 9443, so choose other ports for liberty. 
 
-To import initial questions, use the importer service swagger ui (e.g. http://localhost:9082/openapi/ui/) to post the initial set from `importer_service/src/main/resources/sample-data.json`.
-                
-To create an admin user, start the user service (other repo) and use its swagger ui to post a user to the system with admin true.
-
 To build and push a docker image for a module, first `mvn install` domain and then, in a module dir, use:
 ```console
 mvn clean package
