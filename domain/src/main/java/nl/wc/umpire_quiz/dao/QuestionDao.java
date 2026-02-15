@@ -130,9 +130,11 @@ public class QuestionDao {
 
     public List<QuestionCountDto> count() {
         return em.createQuery("""
-                SELECT new nl.wc.umpire_quiz.model.QuestionCountDto(q.difficulty, count(q))
-                FROM Question q
-                group by q.difficulty
-                order by q.difficulty""", QuestionCountDto.class).getResultList();
+                        SELECT new nl.wc.umpire_quiz.model.QuestionCountDto(q.difficulty, count(q))
+                        FROM Question q
+                        WHERE q.enabled = true
+                        GROUP BY q.difficulty
+                        ORDER BY q.difficulty""", QuestionCountDto.class)
+                .getResultList();
     }
 }
